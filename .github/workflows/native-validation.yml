@@ -14,11 +14,13 @@ jobs:
         include:
           - runner: ubuntu-24.04
             arch: AMD64
+            runner_arch: X64
             machine: x86_64
             archive: wasmer-linux-amd64.tar.gz
             sha256: a44d3eecff832c10d9a4a61fee3a2c564f3d4bc5a59d5802ff12f95ca05fe17b
           - runner: ubuntu-24.04-arm
             arch: ARM64
+            runner_arch: ARM64
             machine: aarch64
             archive: wasmer-linux-aarch64.tar.gz
             sha256: d42919d51b32ba4c89f4b6a5435bd19a819d381056bf65885938738a2cae53cd
@@ -29,7 +31,7 @@ jobs:
       - name: Check source boundary and runner architecture
         env:
           EXPECTED_MACHINE: ${{ matrix.machine }}
-          EXPECTED_ARCH: ${{ matrix.arch }}
+          EXPECTED_ARCH: ${{ matrix.runner_arch }}
         run: |
           set -eu
           python3 scripts/check-public-boundary.py
@@ -90,6 +92,7 @@ jobs:
       - name: Produce bounded public summary
         env:
           TEST_ARCH: ${{ matrix.arch }}
+          TEST_RUNNER_ARCH: ${{ matrix.runner_arch }}
           TEST_RUNNER: ${{ matrix.runner }}
           TEST_MACHINE: ${{ matrix.machine }}
         run: python3 scripts/summarize-native-validation.py "$RUNNER_TEMP/http6-pilot-run/entrypoints.json" "$RUNNER_TEMP/http6-sdk-run/summary.json" "$RUNNER_TEMP/native-summary.json"
