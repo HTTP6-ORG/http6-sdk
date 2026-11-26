@@ -1,0 +1,100 @@
+name: Native compiled demonstration validation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    name: Native ${{ matrix.arch }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-24.04
+            arch: AMD64
+            machine: x86_64
+            archive: wasmer-linux-amd64.tar.gz
+            sha256: a44d3eecff832c10d9a4a61fee3a2c564f3d4bc5a59d5802ff12f95ca05fe17b
+          - runner: ubuntu-24.04-arm
+            arch: ARM64
+            machine: aarch64
+            archive: wasmer-linux-aarch64.tar.gz
+            sha256: d42919d51b32ba4c89f4b6a5435bd19a819d381056bf65885938738a2cae53cd
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Check source boundary and runner architecture
+        env:
+          EXPECTED_MACHINE: ${{ matrix.machine }}
+          EXPECTED_ARCH: ${{ matrix.arch }}
+        run: |
+          set -eu
+          python3 scripts/check-public-boundary.py
+          test "$RUNNER_ARCH" = "$EXPECTED_ARCH"
+          test "$(uname -m)" = "$EXPECTED_MACHINE"
+          uname -a
+          lscpu | sed -n '1,25p'
+          (cd circuits/demo-wasix-02/bin && sha256sum -c ../SHA256SUMS)
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.25.0'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Install verified Wasmer runtime
+        env:
+          ARCHIVE: ${{ matrix.archive }}
+          EXPECTED_SHA256: ${{ matrix.sha256 }}
+        run: |
+          set -eu
+          curl --fail --location --retry 3 --silent --show-error "https://github.com/wasmerio/wasmer/releases/download/v7.4.0/$ARCHIVE" -o "$RUNNER_TEMP/wasmer.tar.gz"
+          printf '%s  %s\n' "$EXPECTED_SHA256" "$RUNNER_TEMP/wasmer.tar.gz" | sha256sum -c -
+          mkdir "$RUNNER_TEMP/wasmer"
+          tar -xzf "$RUNNER_TEMP/wasmer.tar.gz" -C "$RUNNER_TEMP/wasmer" bin/wasmer lib/libwasmer.so
+          printf '%s\n' "$RUNNER_TEMP/wasmer/bin" >> "$GITHUB_PATH"
+          printf 'LD_LIBRARY_PATH=%s\n' "$RUNNER_TEMP/wasmer/lib" >> "$GITHUB_ENV"
+      - name: Assemble public host and compiled guests
+        run: |
+          set -eu
+          test -f /usr/include/sqlite3.h || { sudo apt-get update -qq && sudo apt-get install -y libsqlite3-dev; }
+          wasmer --version
+          go version
+          rustc --version
+          dotnet --version
+          ./pilot/assemble-demo.sh "$GITHUB_WORKSPACE/pilot/bin"
+      - name: Validate full pilot and native response proofs
+        run: |
+          set -eu
+          python3 pilot/test_entrypoints.py --out "$RUNNER_TEMP/http6-pilot-run" > "$RUNNER_TEMP/http6-pilot.log" 2>&1 || { echo 'Pilot integration failed; private synthetic fixture log not uploaded.'; exit 1; }
+          (cd pilot && go test ./cmd/pilot -run '^(TestFailureProofEndToEnd|TestVerifyLedgerRows)$' -count=1 -v -args -trace-release "$GITHUB_WORKSPACE/pilot/bin")
+      - name: Validate Node SDK and schemas
+        env:
+          HTTP6_TEST_PROFILE: http6-wasix-delegation-02
+          HTTP6_WASIX_BIN: ${{ github.workspace }}/pilot/bin
+          HTTP6_PILOT_BINARY: ${{ github.workspace }}/pilot/bin/http6-pilot
+        run: |
+          npm ci
+          npm test
+      - name: Validate Python, Rust, Go, and C# SDKs
+        run: |
+          set -eu
+          cargo fetch --locked --manifest-path packages/rust/Cargo.toml
+          python3 tests/multisdk/run.py --pilot "$GITHUB_WORKSPACE/pilot/bin/http6-pilot" --out "$RUNNER_TEMP/http6-sdk-run" --dotnet dotnet
+      - name: Produce bounded public summary
+        env:
+          TEST_ARCH: ${{ matrix.arch }}
+          TEST_RUNNER: ${{ matrix.runner }}
+          TEST_MACHINE: ${{ matrix.machine }}
+        run: python3 scripts/summarize-native-validation.py "$RUNNER_TEMP/http6-pilot-run/entrypoints.json" "$RUNNER_TEMP/http6-sdk-run/summary.json" "$RUNNER_TEMP/native-summary.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-validation-${{ matrix.arch }}
+          path: ${{ runner.temp }}/native-summary.json
+          retention-days: 30

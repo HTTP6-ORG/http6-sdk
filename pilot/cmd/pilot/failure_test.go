@@ -17,7 +17,7 @@ func TestFailureProofEndToEnd(t *testing.T) {
 	if err := os.Mkdir(out, 0700); err != nil {
 		t.Fatal(err)
 	}
-	socketDir, err := os.MkdirTemp("/private/tmp", "h6-f-")
+	socketDir, err := os.MkdirTemp("/tmp", "h6-f-")
 	if err != nil {
 		t.Fatal(err)
 	}
