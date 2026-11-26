@@ -3,7 +3,7 @@
   "info": {
     "title": "HTTP6 proposed guide API",
     "version": "0.1.0-proposal",
-    "description": "The http6-guide-01 API is one protocol track within ENI6MA’s wider program for human-accessible security grounded in information-theoretic research. The navigator provides a read-only view of operations and schemas. Profile-specific properties are described in the documentation."
+    "description": "The http6-guide-01 API is an early network track within ENI6MA’s mission to replace computational-assumption-based cryptographic primitives with the ENI6MA and Rosario-Wang information-theoretic proof architecture. The navigator provides a read-only view of operations and schemas. Profile-specific properties and current implementation boundaries are described in the documentation."
   },
   "servers": [
     {

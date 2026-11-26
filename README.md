@@ -4,12 +4,12 @@ HTTP6 explores how a person or authorized service can delegate bounded work to a
 
 This repository is the public entry point for the HTTP6 proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It presents the platform architecture, current profile implementations, and planned milestones.
 
-HTTP6 is one network-protocol strand in the wider ENI6MA program. That program concerns human-accessible identity, bounded authority, private proofs, secure communications, and institutional access across global digital systems. Its long-range research begins with geometric and information-theoretic models of what an observer can learn, and aims to replace computational-hardness-dependent security patterns as mathematical results, implementations, and independent review support each transition. This repository covers the HTTP6 API and SDK contribution to that work. Read the [ENI6MA mission](docs/eni6ma-moonshot.md) for the broader thesis and its review path.
+HTTP6 is one network-protocol strand in ENI6MA’s moonshot: replace cryptographic primitives whose security depends on computational assumptions with the ENI6MA and Rosario-Wang information-theoretic proof architecture. If a primitive depends on computational hardness, it is within the program’s replacement scope. The destination spans identity, bounded authority, private proofs, secure communications, institutional access, and other digital systems worldwide. This repository covers HTTP6’s early API and SDK application. Its current W1 profile still uses Ed25519 signatures over HTTPS, so it retains computational assumptions while testing request-bound authority in existing web infrastructure. Read the [ENI6MA mission](docs/eni6ma-moonshot.md) for the full destination, technical thesis, and review path.
 
 ## Start here
 
 - [HTTP6.org](https://www.http6.org/): project overview, architecture, research, and participation.
-- [The ENI6MA Moonshot](https://www.http6.org/moonshot/): the mission for human-bound agent authority and human-usable, post-quantum information-theoretic security.
+- [The ENI6MA Moonshot](https://www.http6.org/moonshot/): the mission to replace computational-assumption-based cryptographic foundations with information-theoretic proofs across digital systems.
 - [Moonshot mission on GitHub](docs/eni6ma-moonshot.md): a repository copy for readers who begin here.
 - [HTTP6 theory](docs/http6-theory.md): the design rationale, proof model, agent authority, and long-term HTTPS/TLS and JWT migration goal.
 - [HTTP6 developers](https://www.http6.org/developers/): API proposal, SDK guide, source links, and demonstrations.
