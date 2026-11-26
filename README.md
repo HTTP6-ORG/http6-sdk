@@ -7,6 +7,7 @@ This repository is the public entry point for the HTTP6 proposal, API and SDK co
 ## Start here
 
 - [HTTP6.org](https://www.http6.org/): project overview, architecture, research, and participation.
+- [HTTP6 theory](docs/http6-theory.md): the design rationale, proof model, agent authority, and long-term HTTPS/TLS and JWT migration goal.
 - [HTTP6 developers](https://www.http6.org/developers/): API proposal, SDK guide, source links, and demonstrations.
 - [Read-only API navigator](https://www.http6.org/developers/sdk/api-reference/): browse the proposed API operations.
 - [Protocol roadmap](https://www.http6.org/roadmap/): staged path from signed requests over HTTPS to a possible native HTTP6 channel.
