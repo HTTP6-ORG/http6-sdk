@@ -1,0 +1,1646 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WASIX 02 pilot ledger event schemas",
+  "description": "Syntactic forms for all recorded event kinds. Verify compact signatures, row and decoded payload equality, hash chain, trust pins, event semantics and checkpoint freshness independently.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/row"
+    },
+    {
+      "$ref": "#/$defs/entry"
+    }
+  ],
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "seq": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "string",
+              "pattern": "^[1-9][0-9]*$"
+            }
+          ]
+        },
+        "event": {
+          "enum": [
+            "ROOT_ADMITTED",
+            "CHILD_MINTED",
+            "REQUEST_PROVED",
+            "CERTIFICATE_ISSUED",
+            "CHECKED",
+            "REDEEMED",
+            "RECOVERED_REDEMPTION",
+            "DELIVERY_HELD",
+            "DELIVERY_UNCERTAIN",
+            "RESPONSE_CHALLENGED",
+            "RESPONSE_PROVED",
+            "CUSTODIAN_OUTCOME",
+            "BROKER_CONFIRMED",
+            "GRANT_REVOKED",
+            "EXPIRED",
+            "WALLET_PROPOSAL_RECORDED",
+            "WALLET_PROPOSAL_REFUSED",
+            "FAILURE_RESPONSE_CHALLENGED",
+            "FAILURE_RESPONSE_PROVED"
+          ]
+        },
+        "actor": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "data": {
+          "type": "string"
+        },
+        "signature": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+        },
+        "ref": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "seq",
+        "event",
+        "actor",
+        "op",
+        "channel",
+        "data",
+        "signature",
+        "ref"
+      ]
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "v": {
+          "const": "http6-wasix-delegation-02"
+        },
+        "kind": {
+          "const": "ledger-entry"
+        },
+        "seq": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "prev": {
+          "anyOf": [
+            {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$"
+            },
+            {
+              "const": ""
+            }
+          ]
+        },
+        "event": {
+          "enum": [
+            "ROOT_ADMITTED",
+            "CHILD_MINTED",
+            "REQUEST_PROVED",
+            "CERTIFICATE_ISSUED",
+            "CHECKED",
+            "REDEEMED",
+            "RECOVERED_REDEMPTION",
+            "DELIVERY_HELD",
+            "DELIVERY_UNCERTAIN",
+            "RESPONSE_CHALLENGED",
+            "RESPONSE_PROVED",
+            "CUSTODIAN_OUTCOME",
+            "BROKER_CONFIRMED",
+            "GRANT_REVOKED",
+            "EXPIRED",
+            "WALLET_PROPOSAL_RECORDED",
+            "WALLET_PROPOSAL_REFUSED",
+            "FAILURE_RESPONSE_CHALLENGED",
+            "FAILURE_RESPONSE_PROVED"
+          ]
+        },
+        "actor": {
+          "type": "string"
+        },
+        "op": {
+          "type": "string"
+        },
+        "channel": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        },
+        "at": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "seq",
+        "prev",
+        "event",
+        "actor",
+        "op",
+        "channel",
+        "data",
+        "at"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "ROOT_ADMITTED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "rootRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "grantRef",
+                  "policyHash",
+                  "rootRef"
+                ]
+              },
+              "actor": {
+                "const": "mint"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "CHILD_MINTED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "rootRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "grantRef",
+                  "policyHash",
+                  "rootRef"
+                ]
+              },
+              "actor": {
+                "const": "mint"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "REQUEST_PROVED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "intentRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "bodyRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "transcriptRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "intentRef",
+                  "bodyRef",
+                  "transcriptRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "grantRef"
+                ]
+              },
+              "actor": {
+                "const": "http6-agent"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "CERTIFICATE_ISSUED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "exp": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "exp"
+                ]
+              },
+              "actor": {
+                "const": "ledger"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "CHECKED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "enum": [
+                      "ELIGIBLE",
+                      "REJECTED",
+                      "EXPIRED",
+                      "SPENT",
+                      "POLICY_DENIED",
+                      "CHANNEL_MISMATCH",
+                      "REVOKED"
+                    ]
+                  },
+                  "policyAllowed": {
+                    "type": "boolean"
+                  },
+                  "stateAfter": {
+                    "const": "REJECTED"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "REDEEMED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "REDEEMED"
+                  },
+                  "policyAllowed": {
+                    "type": "boolean"
+                  },
+                  "redemptionId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "policyAllowed",
+                  "redemptionId"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "RECOVERED_REDEMPTION"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "REDEEMED"
+                  },
+                  "policyAllowed": {
+                    "type": "boolean"
+                  },
+                  "redemptionId": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "policyAllowed",
+                  "redemptionId"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "DELIVERY_HELD"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "HELD"
+                  },
+                  "deadline": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "reason": {
+                    "const": "resource unavailable"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "deadline",
+                  "reason"
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "DELIVERY_UNCERTAIN"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "UNCERTAIN"
+                  },
+                  "reason": {
+                    "const": "resource response unavailable after redemption"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "reason"
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "RESPONSE_CHALLENGED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "RESPONSE_CHALLENGED"
+                  },
+                  "responseContextRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "receiptRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "responseContextRef",
+                  "responseNonce",
+                  "receiptRef"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "RESPONSE_PROVED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "RESPONSE_PROVED"
+                  },
+                  "responseProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseContextRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseChallengeRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "receiptRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "resultHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "responseProofRef",
+                  "responseContextRef",
+                  "responseChallengeRef",
+                  "receiptRef",
+                  "resultHash",
+                  "responseNonce"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "CUSTODIAN_OUTCOME"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "COMMITTED"
+                  },
+                  "receiptRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "receiptRef"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "BROKER_CONFIRMED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "presentationRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "verifierNonce": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proofVerified": {
+                    "const": true
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD",
+                      "REDEEMED",
+                      "COMMITTED",
+                      "REJECTED",
+                      "EXPIRED"
+                    ]
+                  },
+                  "decision": {
+                    "const": "CONFIRMED"
+                  },
+                  "receiptRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "responseEventRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "presentationRef",
+                  "proofRef",
+                  "requestRef",
+                  "policyHash",
+                  "controlProofRef",
+                  "verifierNonce",
+                  "proofVerified",
+                  "stateBefore",
+                  "decision",
+                  "receiptRef",
+                  "responseProofRef",
+                  "responseEventRef"
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "GRANT_REVOKED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "authorization": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$"
+                  }
+                },
+                "required": [
+                  "grantRef",
+                  "authorization"
+                ]
+              },
+              "actor": {
+                "const": "operator"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "EXPIRED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "certificateRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "stateBefore": {
+                    "enum": [
+                      "ISSUED",
+                      "HELD"
+                    ]
+                  },
+                  "deadline": {
+                    "type": "string",
+                    "pattern": "^[0-9]+$"
+                  }
+                },
+                "required": [
+                  "certificateRef",
+                  "stateBefore",
+                  "deadline"
+                ]
+              },
+              "actor": {
+                "const": "ledger"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "WALLET_PROPOSAL_RECORDED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "proposalRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proposalHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "agentKey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "rootRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "originRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "holder": {
+                    "type": "string"
+                  },
+                  "policyAddress": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "proposalRef",
+                  "proposalHash",
+                  "agentKey",
+                  "rootRef",
+                  "originRef",
+                  "grantRef",
+                  "policyHash",
+                  "holder",
+                  "policyAddress"
+                ]
+              },
+              "actor": {
+                "const": "http6-agent"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "WALLET_PROPOSAL_REFUSED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "proposalRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proposalHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "agentKey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "rootRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "originRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "grantRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "policyHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "holder": {
+                    "type": "string"
+                  },
+                  "policyAddress": {
+                    "type": "string"
+                  },
+                  "brokerKey": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "brokerOriginRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "proposalEntryRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "refusalRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "controlProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "decision": {
+                    "const": "REJECTED"
+                  },
+                  "reason": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                      "code": {
+                        "const": "WALLET_AMOUNT_EXCEEDS_LIMIT"
+                      },
+                      "requestedSatoshis": {
+                        "type": "string"
+                      },
+                      "maximumSatoshis": {
+                        "type": "string"
+                      },
+                      "recipient": {
+                        "type": "string"
+                      },
+                      "network": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "code",
+                      "requestedSatoshis",
+                      "maximumSatoshis",
+                      "recipient",
+                      "network"
+                    ]
+                  }
+                },
+                "required": [
+                  "proposalRef",
+                  "proposalHash",
+                  "agentKey",
+                  "rootRef",
+                  "originRef",
+                  "grantRef",
+                  "policyHash",
+                  "holder",
+                  "policyAddress",
+                  "brokerKey",
+                  "brokerOriginRef",
+                  "proposalEntryRef",
+                  "refusalRef",
+                  "controlProofRef",
+                  "decision",
+                  "reason"
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "FAILURE_RESPONSE_CHALLENGED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "failureContextRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "resultHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "status": {
+                    "enum": [
+                      400,
+                      403,
+                      503
+                    ]
+                  }
+                },
+                "required": [
+                  "failureContextRef",
+                  "requestHash",
+                  "resultHash",
+                  "status"
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "FAILURE_RESPONSE_PROVED"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "properties": {
+              "data": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "failureProofRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "failureContextRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "failureChallengeRef": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "requestHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "resultHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$"
+                  },
+                  "category": {
+                    "enum": [
+                      "malformed",
+                      "denied",
+                      "held",
+                      "uncertain"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      400,
+                      403,
+                      503
+                    ]
+                  }
+                },
+                "required": [
+                  "failureProofRef",
+                  "failureContextRef",
+                  "failureChallengeRef",
+                  "requestHash",
+                  "resultHash",
+                  "category",
+                  "status"
+                ],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "category": {
+                          "const": "malformed"
+                        }
+                      },
+                      "required": [
+                        "category"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "status": {
+                          "const": 400
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "category": {
+                          "const": "denied"
+                        }
+                      },
+                      "required": [
+                        "category"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "status": {
+                          "const": 403
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "category": {
+                          "const": "held"
+                        }
+                      },
+                      "required": [
+                        "category"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "status": {
+                          "const": 503
+                        }
+                      }
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "category": {
+                          "const": "uncertain"
+                        }
+                      },
+                      "required": [
+                        "category"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "status": {
+                          "const": 503
+                        }
+                      }
+                    }
+                  }
+                ]
+              },
+              "actor": {
+                "const": "broker"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

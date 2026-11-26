@@ -1,0 +1,23 @@
+node_modules/
+build/
+.docusaurus/
+docs/generated/
+.DS_Store
+examples/synthetic-vectors.json
+__pycache__/
+
+packages/rust/target/
+packages/csharp/obj/
+packages/csharp/bin/
+tests/multisdk/csharp/obj/
+tests/multisdk/csharp/bin/
+
+# Do not publish private circuit or WASIX guest source.
+pilot/src/
+pilot/vendor/
+pilot/Cargo.toml
+pilot/Cargo.lock
+pilot/build.sh
+pilot/worker.wat
+*.wasm
+!circuits/demo-wasix-02/bin/*.wasm

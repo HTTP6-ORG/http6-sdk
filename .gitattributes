@@ -1,0 +1,3 @@
+# Preserve upstream third-party notice bytes exactly.
+circuits/demo-wasix-02/THIRD_PARTY/** -text -diff
+*.wasm binary

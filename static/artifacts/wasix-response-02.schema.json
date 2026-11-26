@@ -1,0 +1,328 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Syntactic schema only. The designated verifier, pinned trust, exact response bytes, ledger event, freshness, replay and resource checks remain mandatory.",
+  "properties": {
+    "certificate": {
+      "maxLength": 8192,
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "challenge": {
+      "maxLength": 8192,
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": false,
+      "properties": {
+        "actorKey": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "audience": {
+          "enum": [
+            "wallet",
+            "endpoint",
+            "process",
+            "database"
+          ]
+        },
+        "certificateRef": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "contentType": {
+          "const": "application/json"
+        },
+        "epoch": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "exp": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "iat": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kind": {
+          "const": "response-context"
+        },
+        "nonce": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "op": {
+          "pattern": "^[a-z0-9-]{1,64}$",
+          "type": "string"
+        },
+        "outcomeEventRef": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "policyAddress": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "policyHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "presentationRef": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "receiptRef": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "recipient": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "requestRef": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "resultHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "status": {
+          "const": 200
+        },
+        "v": {
+          "const": "http6-wasix-delegation-02"
+        },
+        "verifierKey": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "actorKey",
+        "recipient",
+        "requestRef",
+        "certificateRef",
+        "presentationRef",
+        "policyHash",
+        "resultHash",
+        "receiptRef",
+        "outcomeEventRef",
+        "nonce",
+        "verifierKey",
+        "v",
+        "kind",
+        "op",
+        "audience",
+        "policyAddress",
+        "epoch",
+        "status",
+        "contentType",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "proof": {
+      "additionalProperties": false,
+      "properties": {
+        "result": {
+          "additionalProperties": false,
+          "properties": {
+            "actorKey": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "challenge": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "circuitDigest": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "contextHash": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "exp": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "gen": {
+              "const": 1
+            },
+            "iat": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "response"
+            },
+            "originRef": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "policyAddress": {
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            "policyHash": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "publicResponse": {
+              "additionalProperties": false,
+              "properties": {
+                "format": {
+                  "const": "eni6ma-child-id4"
+                },
+                "outputHash": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "outputSignature": {
+                  "pattern": "^[A-Za-z0-9_-]{86}$",
+                  "type": "string"
+                },
+                "rounds": {
+                  "const": 12
+                },
+                "transcript": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "attemptHash": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "ceremony": {
+                      "const": "eni6ma-child-id4"
+                    },
+                    "challenge": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "rounds": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "responseCommitment": {
+                            "pattern": "^[0-9a-f]{64}$",
+                            "type": "string"
+                          },
+                          "round": {
+                            "maximum": 12,
+                            "minimum": 1,
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "round",
+                          "responseCommitment"
+                        ],
+                        "type": "object"
+                      },
+                      "maxItems": 12,
+                      "minItems": 12,
+                      "type": "array"
+                    },
+                    "successPayloadHash": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "successTag": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "v": {
+                      "const": "http6-wasix-delegation-02"
+                    }
+                  },
+                  "required": [
+                    "v",
+                    "ceremony",
+                    "challenge",
+                    "attemptHash",
+                    "rounds",
+                    "successPayloadHash",
+                    "successTag"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "format",
+                "rounds",
+                "transcript",
+                "outputHash",
+                "outputSignature"
+              ],
+              "type": "object"
+            },
+            "v": {
+              "const": "http6-wasix-delegation-02"
+            },
+            "verdict": {
+              "const": "accepted"
+            },
+            "verifierKey": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "actorKey",
+            "challenge",
+            "circuitDigest",
+            "contextHash",
+            "originRef",
+            "policyHash",
+            "verifierKey",
+            "v",
+            "kind",
+            "verdict",
+            "gen",
+            "iat",
+            "exp",
+            "policyAddress",
+            "publicResponse"
+          ],
+          "type": "object"
+        },
+        "resultHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "signature": {
+          "pattern": "^[A-Za-z0-9_-]{86}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "result",
+        "resultHash",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "receipt": {
+      "maxLength": 8192,
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "context",
+    "challenge",
+    "proof",
+    "certificate",
+    "receipt"
+  ],
+  "title": "HTTP6 WASIX 02 committed response proof package",
+  "type": "object"
+}

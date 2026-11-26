@@ -1,0 +1,764 @@
+{
+  "buildSha256": {
+    "child.wasm": "288ef7812c82d8cf599bc0df7dd576a2d15595d3aedc16f3b4ef5830defa5d00",
+    "control.wasm": "aa7fbafc419cacae63ddd5571b14834e8d5b102c20c1a3fc6e6ab01e3f11583f",
+    "http6-pilot": "c1ac5b8f28bb1235c482197398a2d1664e209f1064b3a7907f84d3bcc762a2a7",
+    "mint.wasm": "f162e3a78d7912f5e90515cb3eb2eb792b68611cf3f031fa8c352d792446d9ed",
+    "verifier.wasm": "0946a6318914cc9a129611f7a9b0a33fbc3f8b460de0238f3e85918cf38390a7",
+    "work.wasm": "d2cad007929c12a0cad5f721ccb1b0dc83608155d47dfbdb949c34490cbff488"
+  },
+  "checks": [
+    {
+      "name": "web-only client cannot open host ledger",
+      "observed": "Get \"http://local-ledger.local/http6/v0/catalog\": private socket unavailable",
+      "pass": true,
+      "resource": "local-ledger"
+    },
+    {
+      "name": "anonymous HTTPS client can enumerate public evidence",
+      "observed": "catalog available",
+      "pass": true,
+      "resource": "ledger"
+    },
+    {
+      "name": "policy bound and native root output signed",
+      "observed": "ROOT_ADMITTED",
+      "pass": true,
+      "resource": "root"
+    },
+    {
+      "name": "distinct attenuated child circuits",
+      "observed": "4 unique circuit digests",
+      "pass": true,
+      "resource": "root"
+    },
+    {
+      "name": "allowed channel acted",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "independent native response and ledger verification",
+      "observed": "RESPONSE_PROVED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response result",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response recipient",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response request reference",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response challenge",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response status",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response policy",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response audience",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response receipt",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "missing response proof",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed response proof signature",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed original presentation",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "changed ledger decision",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "replayed response commit",
+      "observed": "CONTROL_REPLAY",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "response proof replay with fresh control proof",
+      "observed": "RESPONSE_REPLAY_OR_EXPIRED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "expired response proof rejected for live verification",
+      "observed": "EXPIRED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "historical proof verifies at signed ledger event time",
+      "observed": "HISTORICAL_VERIFIED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "allowed channel acted",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "allowed channel acted",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "allowed channel acted",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "live signed proof presented directly at restricted channel",
+      "observed": "POLICY_DENIED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "previously rejected proof retried on allowed channel",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "fresh proof for the allowed channel after rejection",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "exact replay after use",
+      "observed": "SPENT",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "child sought fresh proof outside its policy",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "live signed proof presented directly at restricted channel",
+      "observed": "POLICY_DENIED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "previously rejected proof retried on allowed channel",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "fresh proof for the allowed channel after rejection",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "exact replay after use",
+      "observed": "SPENT",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "child sought fresh proof outside its policy",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "live signed proof presented directly at restricted channel",
+      "observed": "POLICY_DENIED",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "previously rejected proof retried on allowed channel",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "fresh proof for the allowed channel after rejection",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "exact replay after use",
+      "observed": "SPENT",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "child sought fresh proof outside its policy",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "live signed proof presented directly at restricted channel",
+      "observed": "POLICY_DENIED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "previously rejected proof retried on allowed channel",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "fresh proof for the allowed channel after rejection",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "exact replay after use",
+      "observed": "SPENT",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "child sought fresh proof outside its policy",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "complete unspent presentation copied to another connection",
+      "observed": "FRESH_HOLDER_REQUIRED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "copied unspent presentation and authentic hop signature on a new connection",
+      "observed": "FRESH_HOLDER_REQUIRED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "public proof copied without holder signature",
+      "observed": "MISSING_OR_DUPLICATE_SIGNATURE_FIELD",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "public root policy address substituted for child policy",
+      "observed": "HTTP signed field mismatch",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "request arguments changed after signature",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "request payload changed after signature",
+      "observed": "body shape",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "native proof policy hash edited",
+      "observed": "circuit proof binding",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "child policy rewritten under existing grant",
+      "observed": "child scope or generation",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "sibling birth proof spliced into lineage",
+      "observed": "child birth proof",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "spent native challenge submitted again",
+      "observed": "challenge absent or spent",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "duplicate signed proof reservation",
+      "observed": "OPERATION_EXISTS",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "valid endpoint proof at process custodian",
+      "observed": "WRONG_CUSTODIAN",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "unsigned HTTP method at endpoint",
+      "observed": "METHOD",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "holder acted after copied requests were refused",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "concurrent broker deliveries of one instruction",
+      "observed": "1 acted, 1 SPENT",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "wrong tenant",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "different purpose",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "different release recipient",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "unregistered intent extension",
+      "observed": "intent shape",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "extra computation units",
+      "observed": "intent shape",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "read-only grant rejects report.create",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "read-only grant rejects report.update",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "read-only grant rejects report.delete",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "endpoint outside allowlist",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "release response to an unlisted worker",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "child lifetime expansion",
+      "observed": "unsupported policy bounds",
+      "pass": true,
+      "resource": "root"
+    },
+    {
+      "name": "fifth birth under four-child root",
+      "observed": "birth allowance exhausted",
+      "pass": true,
+      "resource": "root"
+    },
+    {
+      "name": "fifth reservation against four-call child allowance",
+      "observed": "BUDGET",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "direct remote execution requires local broker",
+      "observed": "BROKER_REQUIRED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "wallet proposal with satoshis=1001",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "wallet proposal with satoshis=0",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "wallet proposal with recipient=merchant-b",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "wallet proposal with network=mainnet",
+      "observed": "action outside hereditary policy",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "temporary service outage holds the original proof",
+      "observed": "HELD_RESOURCE",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "service restored before the original deadline",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "delayed HTTPS response holds one operation",
+      "observed": "HELD_RESOURCE",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "same proof delivered after network delay",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "agent sets a two-second service outage deadline",
+      "observed": "HELD_RESOURCE",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "held request past its signed two-second window",
+      "observed": "expired or inactive",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "grant revoked after valid proof was issued",
+      "observed": "REVOKED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "retry after a signed revocation refusal",
+      "observed": "REJECTED",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "local call proof absent from public ledger",
+      "observed": "MISSING_PUBLIC_RECORD",
+      "pass": true,
+      "resource": "process"
+    },
+    {
+      "name": "local call proof absent from public ledger",
+      "observed": "MISSING_PUBLIC_RECORD",
+      "pass": true,
+      "resource": "database"
+    },
+    {
+      "name": "local call proof absent from public ledger",
+      "observed": "MISSING_PUBLIC_RECORD",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "wallet grant submitted to external ledger",
+      "observed": "WRONG_LEDGER",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "external ledger disconnected before remote action",
+      "observed": "HELD_LEDGER",
+      "pass": true,
+      "resource": "broker"
+    },
+    {
+      "name": "external ledger disconnected before remote action",
+      "observed": "HELD_LEDGER",
+      "pass": true,
+      "resource": "endpoint"
+    },
+    {
+      "name": "250-satoshi local debit while the external ledger is offline",
+      "observed": "CONFIRMED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "portable signed spend checked with local trust anchors",
+      "observed": "OFFLINE_VERIFIED",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "offline evidence with modified spend amount",
+      "observed": "spend evidence binding mismatch",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "public ledger key substituted for local trust anchor",
+      "observed": "untrusted installation or local ledger",
+      "pass": true,
+      "resource": "wallet"
+    },
+    {
+      "name": "local ledger disconnected before debit",
+      "observed": "HELD_LEDGER",
+      "pass": true,
+      "resource": "broker"
+    },
+    {
+      "name": "local ledger disconnected before debit",
+      "observed": "HELD_LEDGER",
+      "pass": true,
+      "resource": "wallet"
+    }
+  ],
+  "date": "2026-11-25",
+  "limitations": "This summary omits raw ledgers and private runtime state. Native proof validation is by a designated verifier; no independently operated verifier, production keys, external payment or hosted service is claimed.",
+  "platform": {
+    "machine": "arm64",
+    "system": "Darwin"
+  },
+  "profile": "http6-wasix-delegation-01",
+  "scope": "One host and one operator. Synthetic identities, accounts and fixtures. Separate resource and verifier guests; not independent administration or production deployment.",
+  "sourceFilesSha256": [
+    {
+      "file": "pilot/src/bin/child.rs",
+      "sha256": "0b4d7acb812bbf2f3123abf71ca02dc9fdd69aafed373f59b81d5ebbc0eac11c"
+    },
+    {
+      "file": "pilot/src/bin/control.rs",
+      "sha256": "92190b9ffd854b3b87050de618108e9d0628a77590576bde8fb5e35b5af41e72"
+    },
+    {
+      "file": "pilot/src/bin/mint.rs",
+      "sha256": "fe67d9bccd87ce56d30460c42b268929e821ccdfadcb9e959344f8b79369b776"
+    },
+    {
+      "file": "pilot/src/bin/verifier.rs",
+      "sha256": "5e2da204935a451554bb4f747f10e843f29299683e47577120fd01e5581911d2"
+    },
+    {
+      "file": "pilot/src/circuit.rs",
+      "sha256": "7646ea250ad4be3f16dea79ef34e46ab4d0141744b2512cae48ded6dccfb9952"
+    },
+    {
+      "file": "pilot/src/lib.rs",
+      "sha256": "52d9d827ec16728cc75c783b9df89702f5a43517ae160cd1ed2dae9372d1dcd1"
+    },
+    {
+      "file": "pilot/src/protocol.rs",
+      "sha256": "5e4be6f1b436253aa91647f9dd34ef43747dfa8ca9f949f7a4eeda450432a8e0"
+    },
+    {
+      "file": "pilot/src/verify.rs",
+      "sha256": "3d9d8c82f20b64450cbe929972ac20b3fe50d83ffc8fdd081dedba5d5bc9de6b"
+    },
+    {
+      "file": "pilot/src/wallet.rs",
+      "sha256": "b61b50c2165c780feb3232757884677a48af78522e733702e6f965bae6e09169"
+    },
+    {
+      "file": "pilot/cmd/pilot/agent.go",
+      "sha256": "9390a5fb41a34d28282761cc69aa09622f62b23b641d4bad3bd3a50246b760a8"
+    },
+    {
+      "file": "pilot/cmd/pilot/audit.go",
+      "sha256": "2be3e92a4f74013ff1592f04893f03c2782b4de3bd42c409ef142b1b4834343c"
+    },
+    {
+      "file": "pilot/cmd/pilot/common.go",
+      "sha256": "f5635f66ac0ed04e56339b9dae0b6d841f4eb0454ade77d287ff20ffd7dac2d1"
+    },
+    {
+      "file": "pilot/cmd/pilot/demo.go",
+      "sha256": "779e5af9228c52e35068afba32d02a397dbeb66ea1e75b17edb9d51bf25a4ca0"
+    },
+    {
+      "file": "pilot/cmd/pilot/ledger.go",
+      "sha256": "895f0b9f6427f1901eb99640f9c23a276b5131e08f1b30724c99957a06689ae2"
+    },
+    {
+      "file": "pilot/cmd/pilot/main.go",
+      "sha256": "ce0d2089f5652d8aae8ee855d5a99e81817fe1d6b0987754e2196100ac7e641e"
+    },
+    {
+      "file": "pilot/cmd/pilot/refusal.go",
+      "sha256": "dc447ba13b9e61e8136c660b156f5534974a3dcdbbda361db6ebd6e1cc64981a"
+    },
+    {
+      "file": "pilot/cmd/pilot/report_trace.go",
+      "sha256": "42d2a7d0620f213b169300d096ed21764d71428f559d466f1081591c74ea6358"
+    },
+    {
+      "file": "pilot/cmd/pilot/resource.go",
+      "sha256": "8e80ca25def67184c704132df3ed8b9e5042140f39fd609e940f35304c9e78b4"
+    },
+    {
+      "file": "pilot/cmd/pilot/response.go",
+      "sha256": "d61383a4c0beaa4fd341fcdd417f1e5bee2bdf8e3b6dfd36932117d277900255"
+    },
+    {
+      "file": "pilot/cmd/pilot/response_cases.go",
+      "sha256": "4ea182a08265d84bf8b0a799f139a165665a715373a420e4f719d5c798474481"
+    },
+    {
+      "file": "pilot/cmd/pilot/response_test.go",
+      "sha256": "9dd9dacacfb89aee3d30ed4422de1ac91c9be48d9fffdd470df8c833f26ffd68"
+    },
+    {
+      "file": "pilot/cmd/pilot/service.go",
+      "sha256": "16896d1260fb2ce5ecb25760bc7ea5861fbf3f45dd42ebca49f2c0d71fcc66e3"
+    },
+    {
+      "file": "pilot/cmd/pilot/spend.go",
+      "sha256": "6ad2af1db714dd115ae19243d9f1c0af4e347ed5a0204aee18b42f41b0ddf285"
+    },
+    {
+      "file": "pilot/cmd/pilot/sqlite.go",
+      "sha256": "2f201324a38d7bfae5cafad6a36cc3a531f681d5f8b7e0dab634366fde2e3143"
+    },
+    {
+      "file": "pilot/cmd/pilot/wallet_report_test.go",
+      "sha256": "cdccb499b59b9e265003781fde8c3340b5b6d102cf57da61524e67e35786c876"
+    },
+    {
+      "file": "pilot/Cargo.toml",
+      "sha256": "7f6a1154a93b3dba297057dda9b5bc39779023f6b5778e5b806f20c1926120a2"
+    },
+    {
+      "file": "pilot/Cargo.lock",
+      "sha256": "886c7e0a5c4baea2820e2f6910edab358eb28de143486e35c25154a325469903"
+    },
+    {
+      "file": "pilot/go.mod",
+      "sha256": "a584f0b522106c48e143a6e55008156a72fdb6ed030820dab44cc1e2b5f68b0b"
+    },
+    {
+      "file": "pilot/worker.wat",
+      "sha256": "9f9e1fa6af5d62a12353069f3a2ec049151d44900441f5b3d09b969ff7fa1198"
+    },
+    {
+      "file": "pilot/build.sh",
+      "sha256": "b5d664c6dfe55c6275f8d6d3da41a299ef5cb79fcdea6ac5a6ddf91b8820a32a"
+    },
+    {
+      "file": "pilot/test_entrypoints.py",
+      "sha256": "a5c09bc18027fa65e9c4a2dd0089964bbb595136ab9d82954d30afa11ec4ae0f"
+    }
+  ],
+  "summary": {
+    "allPassed": true,
+    "effects": {
+      "database": {
+        "allowed": 2,
+        "restricted": 0
+      },
+      "endpoint": {
+        "allowed": 6,
+        "restricted": 0
+      },
+      "process": {
+        "allowed": 2,
+        "restricted": 0
+      },
+      "wallet": {
+        "allowed": 3,
+        "restricted": 0
+      }
+    },
+    "entriesPerLedger": {
+      "ledger": 76,
+      "local-ledger": 91
+    },
+    "issuedRequests": 23,
+    "signedLedgerEntries": 167,
+    "tests": 98,
+    "walletBalanceSatoshis": 7750
+  },
+  "title": "WASIX response proof local synthetic qualification"
+}

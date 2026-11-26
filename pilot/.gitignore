@@ -1,0 +1,9 @@
+/bin/
+/target/
+/dist/
+/runs/
+/vendor
+/evidence/
+
+# Circuit and WASIX guest source stays local and is never published.
+/src/

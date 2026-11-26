@@ -1,0 +1,367 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "Syntax only. Independently verify the designated verifier, pinned operator and ledger, one-use challenge, event, exact received request bytes, actual HTTP status and returned response core. This is a broker observation, not proof of identity, policy correctness or effect.",
+  "properties": {
+    "challenge": {
+      "maxLength": 8192,
+      "pattern": "^[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+\\.[A-Za-z0-9_-]+$",
+      "type": "string"
+    },
+    "context": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "malformed"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 400
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "denied"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 403
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "held"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 503
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "category": {
+                "const": "uncertain"
+              }
+            },
+            "required": [
+              "category"
+            ]
+          },
+          "then": {
+            "properties": {
+              "status": {
+                "const": 503
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "actorKey": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "category": {
+          "enum": [
+            "malformed",
+            "denied",
+            "held",
+            "uncertain"
+          ]
+        },
+        "exp": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "iat": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "kind": {
+          "const": "failure-context"
+        },
+        "method": {
+          "const": "POST"
+        },
+        "nonce": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "policyAddress": {
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        },
+        "policyHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "requestHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "resultHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            400,
+            403,
+            503
+          ]
+        },
+        "target": {
+          "const": "/http6/v0/propose"
+        },
+        "v": {
+          "const": "http6-wasix-delegation-02"
+        },
+        "verifierKey": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "category",
+        "status",
+        "requestHash",
+        "resultHash",
+        "method",
+        "target",
+        "actorKey",
+        "verifierKey",
+        "policyHash",
+        "policyAddress",
+        "nonce",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "proof": {
+      "additionalProperties": false,
+      "properties": {
+        "result": {
+          "additionalProperties": false,
+          "properties": {
+            "actorKey": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "challenge": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "circuitDigest": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "contextHash": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "exp": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "gen": {
+              "const": 1
+            },
+            "iat": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "kind": {
+              "const": "failure"
+            },
+            "originRef": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "policyAddress": {
+              "maxLength": 2048,
+              "minLength": 1,
+              "type": "string"
+            },
+            "policyHash": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            },
+            "publicResponse": {
+              "additionalProperties": false,
+              "properties": {
+                "format": {
+                  "const": "eni6ma-child-id4"
+                },
+                "outputHash": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                "outputSignature": {
+                  "pattern": "^[A-Za-z0-9_-]{86}$",
+                  "type": "string"
+                },
+                "rounds": {
+                  "const": 12
+                },
+                "transcript": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "attemptHash": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "ceremony": {
+                      "const": "eni6ma-child-id4"
+                    },
+                    "challenge": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "rounds": {
+                      "items": {
+                        "additionalProperties": false,
+                        "properties": {
+                          "responseCommitment": {
+                            "pattern": "^[0-9a-f]{64}$",
+                            "type": "string"
+                          },
+                          "round": {
+                            "maximum": 12,
+                            "minimum": 1,
+                            "type": "integer"
+                          }
+                        },
+                        "required": [
+                          "round",
+                          "responseCommitment"
+                        ],
+                        "type": "object"
+                      },
+                      "maxItems": 12,
+                      "minItems": 12,
+                      "type": "array"
+                    },
+                    "successPayloadHash": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "successTag": {
+                      "pattern": "^[0-9a-f]{64}$",
+                      "type": "string"
+                    },
+                    "v": {
+                      "const": "http6-wasix-delegation-02"
+                    }
+                  },
+                  "required": [
+                    "v",
+                    "ceremony",
+                    "challenge",
+                    "attemptHash",
+                    "rounds",
+                    "successPayloadHash",
+                    "successTag"
+                  ],
+                  "type": "object"
+                }
+              },
+              "required": [
+                "format",
+                "rounds",
+                "transcript",
+                "outputHash",
+                "outputSignature"
+              ],
+              "type": "object"
+            },
+            "v": {
+              "const": "http6-wasix-delegation-02"
+            },
+            "verdict": {
+              "const": "accepted"
+            },
+            "verifierKey": {
+              "pattern": "^[0-9a-f]{64}$",
+              "type": "string"
+            }
+          },
+          "required": [
+            "actorKey",
+            "challenge",
+            "circuitDigest",
+            "contextHash",
+            "originRef",
+            "policyHash",
+            "verifierKey",
+            "v",
+            "kind",
+            "verdict",
+            "gen",
+            "iat",
+            "exp",
+            "policyAddress",
+            "publicResponse"
+          ],
+          "type": "object"
+        },
+        "resultHash": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "signature": {
+          "pattern": "^[A-Za-z0-9_-]{86}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "result",
+        "resultHash",
+        "signature"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "context",
+    "challenge",
+    "proof"
+  ],
+  "title": "HTTP6 WASIX 02 failure proof package",
+  "type": "object"
+}

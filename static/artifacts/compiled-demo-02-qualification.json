@@ -1,0 +1,38 @@
+{
+  "profile": "http6-wasix-delegation-02",
+  "status": "compiled demonstration only, not production qualification",
+  "format": "wasm32-wasix; work.wasm is a generic sample worker",
+  "artifactsSha256": {
+    "mint.wasm": "2184b6aa794dd658ff3413ddfce4f0af0a1fa4d1b286b622e2a28a9b2ec7db96",
+    "child.wasm": "bd1378d1f87bcd6e0db71a82b4fdbb3d9256b73aba53bb2be99ef853647d7af7",
+    "control.wasm": "bbe2267c328619692232ec0dd5caeed09de3ee62d550331abc2debd82030feb0",
+    "verifier.wasm": "206a49e7cb359828dfb7f3a093607679401edf6d9192f9fa1621d8a3e00b7312",
+    "work.wasm": "d2cad007929c12a0cad5f721ccb1b0dc83608155d47dfbdb949c34490cbff488"
+  },
+  "testedEnvironments": [
+    {
+      "platform": "macOS ARM64",
+      "runtime": "Wasmer 7.4.0",
+      "emulated": false,
+      "checks": 98,
+      "audit": "AUDIT 98 tests, 167 signed ledger entries, 23 issued operations, 13 effects, 0 restricted effects"
+    },
+    {
+      "platform": "Linux AMD64 on ARM64 host",
+      "runtime": "Wasmer 7.4.0 in isolated Docker",
+      "emulated": true,
+      "checks": 98,
+      "audit": "AUDIT 98 tests, 168 signed ledger entries, 23 issued operations, 13 effects, 0 restricted effects"
+    }
+  ],
+  "otherTests": [
+    "local denied, held, malformed, uncertain, replay and failure evidence checks passed on macOS ARM64",
+    "Python, Rust, Go and C# SDK success, failure, malformed and ledger checks passed on macOS ARM64",
+    "Python WASIX request bytes bound to the native Rust WASIX failure proof"
+  ],
+  "limitations": [
+    "synthetic data and single operator",
+    "AMD64 run used emulation, not independent native AMD64 hardware",
+    "not a formal proof, production security assessment or independent cross-domain deployment"
+  ]
+}

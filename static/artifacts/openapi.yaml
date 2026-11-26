@@ -1,0 +1,3692 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "HTTP6 proposed guide API",
+    "version": "0.1.0-proposal",
+    "description": "Design-only http6-guide-01 contract. This is not the existing WASIX pilot API, a production service, or an IETF standard. No calls can be sent from this navigator."
+  },
+  "servers": [
+    {
+      "url": "https://example.invalid/http6/api/v1",
+      "description": "Illustrative, non-routable"
+    }
+  ],
+  "security": [
+    {
+      "mutuallyAuthenticatedTransport": []
+    }
+  ],
+  "paths": {
+    "/origins/challenges": {
+      "post": {
+        "operationId": "prepareRootChallenge",
+        "tags": [
+          "Admission"
+        ],
+        "summary": "Prepare Root Challenge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RootChallengeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RootChallengeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/origins/admissions": {
+      "post": {
+        "operationId": "admitOrigin",
+        "tags": [
+          "Admission"
+        ],
+        "summary": "Admit Origin",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdmissionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdmissionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/grants": {
+      "post": {
+        "operationId": "mintChild",
+        "tags": [
+          "Minting"
+        ],
+        "summary": "Mint Child",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChildGrantRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChildGrantResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proofs/challenges": {
+      "post": {
+        "operationId": "issueProofChallenge",
+        "tags": [
+          "Proofs"
+        ],
+        "summary": "Issue Proof Challenge",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProofChallengeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProofChallengeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/proofs/verify": {
+      "post": {
+        "operationId": "verifyNativeProof",
+        "tags": [
+          "Proofs"
+        ],
+        "summary": "Verify Native Proof",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProofVerifyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProofVerifyResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/requests/verify": {
+      "post": {
+        "operationId": "verifyRequestMessage",
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Verify Request Message",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RequestMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/messages/responses/verify": {
+      "post": {
+        "operationId": "verifyResponseMessage",
+        "tags": [
+          "Messages"
+        ],
+        "summary": "Verify Response Message",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ResponseMessageRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseMessageResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/reservations": {
+      "post": {
+        "operationId": "reserveOperation",
+        "tags": [
+          "Enforcement"
+        ],
+        "summary": "Reserve Operation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReservationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReservationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/checks": {
+      "post": {
+        "operationId": "checkOperation",
+        "tags": [
+          "Enforcement"
+        ],
+        "summary": "Check Operation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CheckResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/redemptions": {
+      "post": {
+        "operationId": "redeemOperation",
+        "tags": [
+          "Enforcement"
+        ],
+        "summary": "Redeem Operation",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RedemptionRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RedemptionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/outcomes": {
+      "post": {
+        "operationId": "submitOutcome",
+        "tags": [
+          "Enforcement"
+        ],
+        "summary": "Submit Outcome",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OutcomeRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OutcomeResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/closures": {
+      "post": {
+        "operationId": "submitClosure",
+        "tags": [
+          "Enforcement"
+        ],
+        "summary": "Submit Closure",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ClosureRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClosureResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/operations/status": {
+      "post": {
+        "operationId": "inspectOperationStatus",
+        "tags": [
+          "Inspection"
+        ],
+        "summary": "Inspect Operation Status",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StatusRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ledger/queries": {
+      "post": {
+        "operationId": "inspectLedger",
+        "tags": [
+          "Inspection"
+        ],
+        "summary": "Inspect Ledger",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LedgerQueryRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LedgerQueryResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ledger/evidence-bundles": {
+      "post": {
+        "operationId": "collectEvidence",
+        "tags": [
+          "Inspection"
+        ],
+        "summary": "Collect Evidence",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EvidenceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EvidenceResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authority/revocations": {
+      "post": {
+        "operationId": "revokeAuthority",
+        "tags": [
+          "Authority"
+        ],
+        "summary": "Revoke Authority",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RevocationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RevocationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authority/recovery-plans": {
+      "post": {
+        "operationId": "planRecovery",
+        "tags": [
+          "Authority"
+        ],
+        "summary": "Plan Recovery",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryPlanRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryPlanResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/authority/recovery-activations": {
+      "post": {
+        "operationId": "activateRecovery",
+        "tags": [
+          "Authority"
+        ],
+        "summary": "Activate Recovery",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecoveryActivationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proposed signed result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecoveryActivationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Malformed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Held, uncertain or unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "mutuallyAuthenticatedTransport": {
+        "type": "mutualTLS"
+      }
+    },
+    "schemas": {
+      "amount": {
+        "maximum": 2147483647,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "appraisal": {
+        "additionalProperties": false,
+        "properties": {
+          "appraisalPolicy": {
+            "$ref": "#/components/schemas/id"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "gen": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/id"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "appraisal"
+          },
+          "measurement": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "nbf": {
+            "$ref": "#/components/schemas/time"
+          },
+          "service": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "holder",
+          "keyId",
+          "gen",
+          "service",
+          "appraisalPolicy",
+          "measurement",
+          "nbf",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "approval": {
+        "additionalProperties": false,
+        "properties": {
+          "challengeRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "kind": {
+            "const": "approval"
+          },
+          "nbf": {
+            "$ref": "#/components/schemas/time"
+          },
+          "subject": {
+            "$ref": "#/components/schemas/id"
+          },
+          "termsRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "challengeRef",
+          "subject",
+          "termsRef",
+          "nbf",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "args": {
+        "additionalProperties": {
+          "$ref": "#/components/schemas/text"
+        },
+        "maxProperties": 16,
+        "propertyNames": {
+          "pattern": "^[a-z][a-z0-9-]{0,63}$"
+        },
+        "type": "object"
+      },
+      "attempt": {
+        "additionalProperties": false,
+        "properties": {
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "gen": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "grantRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/id"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "intentRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "attempt"
+          },
+          "method": {
+            "const": "POST"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "policyRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "record": {
+            "$ref": "#/components/schemas/id"
+          },
+          "target": {
+            "$ref": "#/components/schemas/uri"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "op",
+          "record",
+          "intentRef",
+          "grantRef",
+          "policyRef",
+          "holder",
+          "keyId",
+          "gen",
+          "method",
+          "target",
+          "epoch",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "challenge": {
+        "additionalProperties": false,
+        "properties": {
+          "actorKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "contextRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "challenge"
+          },
+          "nonce": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "purpose": {
+            "enum": [
+              "root-approval",
+              "join",
+              "request-proof",
+              "response-proof",
+              "ledger-control"
+            ]
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/id"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "id",
+          "nonce",
+          "purpose",
+          "contextRef",
+          "actorKeyId",
+          "recipient",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "checkpoint": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "head": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "checkpoint"
+          },
+          "ledger": {
+            "$ref": "#/components/schemas/id"
+          },
+          "sequence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "stateHash": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "ledger",
+          "sequence",
+          "head",
+          "stateHash",
+          "epoch",
+          "at"
+        ],
+        "type": "object"
+      },
+      "closure": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "audience": {
+            "$ref": "#/components/schemas/id"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "intentRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "closure"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "permitRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "op",
+          "permitRef",
+          "requestRef",
+          "intentRef",
+          "audience",
+          "epoch",
+          "at"
+        ],
+        "type": "object"
+      },
+      "grant": {
+        "additionalProperties": false,
+        "properties": {
+          "appraisalRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "approvalRef": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/hash"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "joinRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "grant"
+          },
+          "parentRequestRef": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/hash"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "terms": {
+            "$ref": "#/components/schemas/terms"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "terms",
+          "approvalRef",
+          "parentRequestRef",
+          "joinRef",
+          "appraisalRef"
+        ],
+        "type": "object"
+      },
+      "hash": {
+        "pattern": "^[0-9a-f]{64}$",
+        "type": "string"
+      },
+      "id": {
+        "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+        "type": "string"
+      },
+      "intent": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/id"
+          },
+          "args": {
+            "$ref": "#/components/schemas/args"
+          },
+          "audience": {
+            "$ref": "#/components/schemas/id"
+          },
+          "inputHash": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "intent"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/id"
+          },
+          "releaseTo": {
+            "$ref": "#/components/schemas/id"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/id"
+          },
+          "rootId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/id"
+          },
+          "units": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "rootId",
+          "tenant",
+          "purpose",
+          "audience",
+          "action",
+          "resource",
+          "args",
+          "inputHash",
+          "releaseTo",
+          "units"
+        ],
+        "type": "object"
+      },
+      "join": {
+        "additionalProperties": false,
+        "properties": {
+          "challengeRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "gen": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/id"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "join"
+          },
+          "nbf": {
+            "$ref": "#/components/schemas/time"
+          },
+          "termsRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "challengeRef",
+          "holder",
+          "keyId",
+          "gen",
+          "termsRef",
+          "nbf",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "ledgerControl": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "check",
+              "redeem",
+              "settle",
+              "close",
+              "inspect"
+            ]
+          },
+          "caller": {
+            "$ref": "#/components/schemas/id"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "idempotencyKey": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "ledger-control"
+          },
+          "nonce": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "permitRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "presentationRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "action",
+          "requestRef",
+          "permitRef",
+          "presentationRef",
+          "caller",
+          "nonce",
+          "idempotencyKey",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "ledgerDecision": {
+        "additionalProperties": false,
+        "properties": {
+          "caller": {
+            "$ref": "#/components/schemas/id"
+          },
+          "controlRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "decision": {
+            "enum": [
+              "allowed",
+              "denied",
+              "held",
+              "redeemed",
+              "settled",
+              "closed"
+            ]
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "fence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "kind": {
+            "const": "ledger-decision"
+          },
+          "nonce": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "permitRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "sequence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "controlRef",
+          "requestRef",
+          "permitRef",
+          "caller",
+          "nonce",
+          "decision",
+          "sequence",
+          "epoch",
+          "fence",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "ledgerEvent": {
+        "additionalProperties": false,
+        "properties": {
+          "actor": {
+            "$ref": "#/components/schemas/id"
+          },
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "event": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "ledger-event"
+          },
+          "ledger": {
+            "$ref": "#/components/schemas/id"
+          },
+          "objectRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "prev": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/hash"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "sequence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "ledger",
+          "sequence",
+          "prev",
+          "event",
+          "actor",
+          "op",
+          "objectRef",
+          "at"
+        ],
+        "type": "object"
+      },
+      "outcome": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "audience": {
+            "$ref": "#/components/schemas/id"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "intentRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "outcome"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "permitRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "resultHash": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "row": {
+            "$ref": "#/components/schemas/id"
+          },
+          "units": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "op",
+          "permitRef",
+          "requestRef",
+          "intentRef",
+          "audience",
+          "row",
+          "resultHash",
+          "units",
+          "epoch",
+          "at"
+        ],
+        "type": "object"
+      },
+      "parentRequest": {
+        "additionalProperties": false,
+        "properties": {
+          "childTermsRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "joinRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "parent-request"
+          },
+          "nbf": {
+            "$ref": "#/components/schemas/time"
+          },
+          "parentGrantRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "parentGrantRef",
+          "childTermsRef",
+          "joinRef",
+          "nbf",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "permit": {
+        "additionalProperties": false,
+        "properties": {
+          "audience": {
+            "$ref": "#/components/schemas/id"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "fence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "grantRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/id"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "intentRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "permit"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "policyRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "proofRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "record": {
+            "$ref": "#/components/schemas/id"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "units": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "id",
+          "op",
+          "record",
+          "intentRef",
+          "requestRef",
+          "proofRef",
+          "grantRef",
+          "policyRef",
+          "holder",
+          "keyId",
+          "audience",
+          "units",
+          "epoch",
+          "fence",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "policy": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "kind": {
+            "const": "policy"
+          },
+          "limit": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "maxDepth": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "per": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "pool": {
+            "$ref": "#/components/schemas/id"
+          },
+          "purpose": {
+            "$ref": "#/components/schemas/id"
+          },
+          "rules": {
+            "items": {
+              "$ref": "#/components/schemas/rule"
+            },
+            "maxItems": 8,
+            "minItems": 1,
+            "type": "array",
+            "uniqueItems": true
+          },
+          "survive": {
+            "type": "boolean"
+          },
+          "tenant": {
+            "$ref": "#/components/schemas/id"
+          },
+          "unit": {
+            "$ref": "#/components/schemas/id"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "id",
+          "tenant",
+          "purpose",
+          "rules",
+          "unit",
+          "pool",
+          "limit",
+          "per",
+          "maxDepth",
+          "survive"
+        ],
+        "type": "object"
+      },
+      "proof": {
+        "additionalProperties": false,
+        "properties": {
+          "challenge": {
+            "$ref": "#/components/schemas/signed"
+          },
+          "result": {
+            "$ref": "#/components/schemas/signed"
+          }
+        },
+        "required": [
+          "challenge",
+          "result"
+        ],
+        "type": "object"
+      },
+      "proofResult": {
+        "additionalProperties": false,
+        "properties": {
+          "actorKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "challengeRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "contextRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "direction": {
+            "enum": [
+              "request",
+              "response",
+              "control"
+            ]
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "kind": {
+            "const": "proof-result"
+          },
+          "policyRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "proofType": {
+            "const": "designated-verifier-attestation"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          },
+          "verdict": {
+            "const": "accepted"
+          },
+          "witnessCommitment": {
+            "$ref": "#/components/schemas/hash"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "proofType",
+          "direction",
+          "contextRef",
+          "challengeRef",
+          "actorKeyId",
+          "policyRef",
+          "witnessCommitment",
+          "verdict",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "recovery": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "checkpointRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "recovery"
+          },
+          "ledger": {
+            "$ref": "#/components/schemas/id"
+          },
+          "nextEpoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "rootId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "ledger",
+          "rootId",
+          "checkpointRef",
+          "nextEpoch",
+          "at"
+        ],
+        "type": "object"
+      },
+      "request": {
+        "additionalProperties": false,
+        "properties": {
+          "attemptRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "request"
+          },
+          "proofRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "attemptRef",
+          "proofRef"
+        ],
+        "type": "object"
+      },
+      "requestPacket": {
+        "additionalProperties": false,
+        "properties": {
+          "appraisal": {
+            "$ref": "#/components/schemas/signed"
+          },
+          "attempt": {
+            "$ref": "#/components/schemas/attempt"
+          },
+          "grantChain": {
+            "items": {
+              "$ref": "#/components/schemas/signed"
+            },
+            "maxItems": 9,
+            "minItems": 1,
+            "type": "array"
+          },
+          "input": {
+            "maxLength": 131072,
+            "pattern": "^(?:[0-9a-f]{2})*$",
+            "type": "string"
+          },
+          "intent": {
+            "$ref": "#/components/schemas/intent"
+          },
+          "policies": {
+            "items": {
+              "$ref": "#/components/schemas/policy"
+            },
+            "maxItems": 9,
+            "minItems": 1,
+            "type": "array"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/proof"
+          },
+          "request": {
+            "$ref": "#/components/schemas/signed"
+          }
+        },
+        "required": [
+          "intent",
+          "input",
+          "attempt",
+          "proof",
+          "request",
+          "grantChain",
+          "policies",
+          "appraisal"
+        ],
+        "type": "object"
+      },
+      "response": {
+        "additionalProperties": false,
+        "properties": {
+          "contextRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "kind": {
+            "const": "response"
+          },
+          "proofRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "contextRef",
+          "proofRef"
+        ],
+        "type": "object"
+      },
+      "responseContext": {
+        "additionalProperties": false,
+        "properties": {
+          "contentType": {
+            "const": "application/json"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "iat": {
+            "$ref": "#/components/schemas/time"
+          },
+          "kind": {
+            "const": "response-context"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          },
+          "outcomeRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "policyRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "recipientKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "record": {
+            "$ref": "#/components/schemas/id"
+          },
+          "requestRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "resourceKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "resultHash": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "status": {
+            "maximum": 599,
+            "minimum": 100,
+            "type": "integer"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "op",
+          "record",
+          "requestRef",
+          "recipientKeyId",
+          "resourceKeyId",
+          "policyRef",
+          "status",
+          "contentType",
+          "resultHash",
+          "outcomeRef",
+          "iat",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "responsePacket": {
+        "additionalProperties": false,
+        "properties": {
+          "context": {
+            "$ref": "#/components/schemas/responseContext"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/signed"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/proof"
+          },
+          "response": {
+            "$ref": "#/components/schemas/signed"
+          },
+          "result": {
+            "maxLength": 131072,
+            "pattern": "^(?:[0-9a-f]{2})*$",
+            "type": "string"
+          }
+        },
+        "required": [
+          "context",
+          "result",
+          "proof",
+          "outcome",
+          "response"
+        ],
+        "type": "object"
+      },
+      "revocation": {
+        "additionalProperties": false,
+        "properties": {
+          "at": {
+            "$ref": "#/components/schemas/time"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "fence": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "kind": {
+            "const": "revocation"
+          },
+          "rootId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "v": {
+            "const": "http6-guide-01"
+          }
+        },
+        "required": [
+          "v",
+          "kind",
+          "rootId",
+          "epoch",
+          "fence",
+          "at"
+        ],
+        "type": "object"
+      },
+      "rule": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "$ref": "#/components/schemas/id"
+          },
+          "args": {
+            "$ref": "#/components/schemas/args"
+          },
+          "audience": {
+            "$ref": "#/components/schemas/id"
+          },
+          "releaseTo": {
+            "$ref": "#/components/schemas/id"
+          },
+          "resource": {
+            "$ref": "#/components/schemas/id"
+          }
+        },
+        "required": [
+          "action",
+          "resource",
+          "audience",
+          "releaseTo",
+          "args"
+        ],
+        "type": "object"
+      },
+      "sighex": {
+        "pattern": "^[0-9a-f]{128}$",
+        "type": "string"
+      },
+      "signature": {
+        "additionalProperties": false,
+        "properties": {
+          "alg": {
+            "const": "Ed25519"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "value": {
+            "$ref": "#/components/schemas/sighex"
+          }
+        },
+        "required": [
+          "alg",
+          "keyId",
+          "value"
+        ],
+        "type": "object"
+      },
+      "signed": {
+        "additionalProperties": false,
+        "properties": {
+          "payload": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/approval"
+              },
+              {
+                "$ref": "#/components/schemas/join"
+              },
+              {
+                "$ref": "#/components/schemas/parentRequest"
+              },
+              {
+                "$ref": "#/components/schemas/grant"
+              },
+              {
+                "$ref": "#/components/schemas/appraisal"
+              },
+              {
+                "$ref": "#/components/schemas/challenge"
+              },
+              {
+                "$ref": "#/components/schemas/proofResult"
+              },
+              {
+                "$ref": "#/components/schemas/request"
+              },
+              {
+                "$ref": "#/components/schemas/permit"
+              },
+              {
+                "$ref": "#/components/schemas/outcome"
+              },
+              {
+                "$ref": "#/components/schemas/closure"
+              },
+              {
+                "$ref": "#/components/schemas/response"
+              },
+              {
+                "$ref": "#/components/schemas/ledgerControl"
+              },
+              {
+                "$ref": "#/components/schemas/ledgerDecision"
+              },
+              {
+                "$ref": "#/components/schemas/ledgerEvent"
+              },
+              {
+                "$ref": "#/components/schemas/checkpoint"
+              },
+              {
+                "$ref": "#/components/schemas/revocation"
+              },
+              {
+                "$ref": "#/components/schemas/recovery"
+              }
+            ]
+          },
+          "signature": {
+            "$ref": "#/components/schemas/signature"
+          }
+        },
+        "required": [
+          "payload",
+          "signature"
+        ],
+        "type": "object"
+      },
+      "terms": {
+        "additionalProperties": false,
+        "properties": {
+          "depth": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "epoch": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "exp": {
+            "$ref": "#/components/schemas/time"
+          },
+          "gen": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "holder": {
+            "$ref": "#/components/schemas/id"
+          },
+          "id": {
+            "$ref": "#/components/schemas/id"
+          },
+          "keyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "limit": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "nbf": {
+            "$ref": "#/components/schemas/time"
+          },
+          "origin": {
+            "$ref": "#/components/schemas/id"
+          },
+          "parentGrantRef": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/hash"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "per": {
+            "$ref": "#/components/schemas/amount"
+          },
+          "policyRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "rootId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "service": {
+            "$ref": "#/components/schemas/uri"
+          }
+        },
+        "required": [
+          "id",
+          "rootId",
+          "parentGrantRef",
+          "origin",
+          "holder",
+          "keyId",
+          "gen",
+          "service",
+          "policyRef",
+          "depth",
+          "limit",
+          "per",
+          "epoch",
+          "nbf",
+          "exp"
+        ],
+        "type": "object"
+      },
+      "text": {
+        "maxLength": 256,
+        "minLength": 1,
+        "pattern": "^[ -~]+$",
+        "type": "string"
+      },
+      "time": {
+        "maximum": 253402300799,
+        "minimum": 0,
+        "type": "integer"
+      },
+      "uri": {
+        "maxLength": 2048,
+        "minLength": 1,
+        "pattern": "^https://[a-z0-9][a-z0-9.-]*(?::[0-9]{1,5})?/[A-Za-z0-9._~/-]*$",
+        "type": "string"
+      },
+      "SignedApproval": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "approval"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedJoin": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "join"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedAppraisal": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "appraisal"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedGrant": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "grant"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedParentRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "parent-request"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedChallenge": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "challenge"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedProofResult": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "proof-result"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedPermit": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "permit"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedControl": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "ledger-control"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedDecision": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "ledger-decision"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedEvent": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "ledger-event"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedOutcome": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "outcome"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedClosure": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "closure"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedCheckpoint": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "checkpoint"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedRevocation": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "revocation"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "SignedRecovery": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/signed"
+          },
+          {
+            "properties": {
+              "payload": {
+                "properties": {
+                  "kind": {
+                    "const": "recovery"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "RootChallengeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "policy",
+          "actorKeyId",
+          "recipient"
+        ],
+        "properties": {
+          "policy": {
+            "$ref": "#/components/schemas/policy"
+          },
+          "actorKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      },
+      "RootChallengeResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "challenge"
+        ],
+        "properties": {
+          "challenge": {
+            "$ref": "#/components/schemas/SignedChallenge"
+          }
+        }
+      },
+      "AdmissionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "approval",
+          "join",
+          "appraisal",
+          "policy"
+        ],
+        "properties": {
+          "approval": {
+            "$ref": "#/components/schemas/SignedApproval"
+          },
+          "join": {
+            "$ref": "#/components/schemas/SignedJoin"
+          },
+          "appraisal": {
+            "$ref": "#/components/schemas/SignedAppraisal"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/policy"
+          }
+        }
+      },
+      "AdmissionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "grant",
+          "event"
+        ],
+        "properties": {
+          "grant": {
+            "$ref": "#/components/schemas/SignedGrant"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "ChildGrantRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "parentRequest",
+          "join",
+          "appraisal",
+          "policy"
+        ],
+        "properties": {
+          "parentRequest": {
+            "$ref": "#/components/schemas/SignedParentRequest"
+          },
+          "join": {
+            "$ref": "#/components/schemas/SignedJoin"
+          },
+          "appraisal": {
+            "$ref": "#/components/schemas/SignedAppraisal"
+          },
+          "policy": {
+            "$ref": "#/components/schemas/policy"
+          }
+        }
+      },
+      "ChildGrantResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "grant",
+          "event"
+        ],
+        "properties": {
+          "grant": {
+            "$ref": "#/components/schemas/SignedGrant"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "ProofChallengeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "purpose",
+          "contextRef",
+          "actorKeyId",
+          "recipient"
+        ],
+        "properties": {
+          "purpose": {
+            "enum": [
+              "request-proof",
+              "response-proof",
+              "ledger-control"
+            ]
+          },
+          "contextRef": {
+            "$ref": "#/components/schemas/hash"
+          },
+          "actorKeyId": {
+            "$ref": "#/components/schemas/id"
+          },
+          "recipient": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      },
+      "ProofChallengeResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "challenge"
+        ],
+        "properties": {
+          "challenge": {
+            "$ref": "#/components/schemas/SignedChallenge"
+          }
+        }
+      },
+      "ProofVerifyRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "proof",
+          "contextRef"
+        ],
+        "properties": {
+          "proof": {
+            "$ref": "#/components/schemas/proof"
+          },
+          "contextRef": {
+            "$ref": "#/components/schemas/hash"
+          }
+        }
+      },
+      "ProofVerifyResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/SignedProofResult"
+          }
+        }
+      },
+      "RequestMessageRequest": {
+        "$ref": "#/components/schemas/requestPacket"
+      },
+      "RequestMessageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/SignedProofResult"
+          }
+        }
+      },
+      "ResponseMessageRequest": {
+        "$ref": "#/components/schemas/responsePacket"
+      },
+      "ResponseMessageResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "result"
+        ],
+        "properties": {
+          "result": {
+            "$ref": "#/components/schemas/SignedProofResult"
+          }
+        }
+      },
+      "ReservationRequest": {
+        "$ref": "#/components/schemas/requestPacket"
+      },
+      "ReservationResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "permit",
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "permit": {
+            "$ref": "#/components/schemas/SignedPermit"
+          },
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "CheckRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "permit",
+          "proof"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "permit": {
+            "$ref": "#/components/schemas/SignedPermit"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/proof"
+          }
+        }
+      },
+      "CheckResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "RedemptionRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "permit",
+          "proof"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "permit": {
+            "$ref": "#/components/schemas/SignedPermit"
+          },
+          "proof": {
+            "$ref": "#/components/schemas/proof"
+          }
+        }
+      },
+      "RedemptionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "OutcomeRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "outcome"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/SignedOutcome"
+          }
+        }
+      },
+      "OutcomeResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "ClosureRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "closure"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "closure": {
+            "$ref": "#/components/schemas/SignedClosure"
+          }
+        }
+      },
+      "ClosureResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "StatusRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "op"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      },
+      "StatusResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "outcome",
+          "closure"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "outcome": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedOutcome"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "closure": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedClosure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "LedgerQueryRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "afterSequence",
+          "limit"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "afterSequence": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 128
+          }
+        }
+      },
+      "LedgerQueryResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "events",
+          "checkpoint",
+          "nextSequence"
+        ],
+        "properties": {
+          "events": {
+            "type": "array",
+            "maxItems": 128,
+            "items": {
+              "$ref": "#/components/schemas/SignedEvent"
+            }
+          },
+          "checkpoint": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedCheckpoint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "nextSequence": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          }
+        }
+      },
+      "EvidenceRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "op"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "op": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      },
+      "EvidenceResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "events",
+          "checkpoint",
+          "outcome",
+          "closure"
+        ],
+        "properties": {
+          "events": {
+            "type": "array",
+            "maxItems": 128,
+            "items": {
+              "$ref": "#/components/schemas/SignedEvent"
+            }
+          },
+          "checkpoint": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedCheckpoint"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "outcome": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedOutcome"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "closure": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SignedClosure"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      },
+      "RevocationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "revocation"
+        ],
+        "properties": {
+          "revocation": {
+            "$ref": "#/components/schemas/SignedRevocation"
+          }
+        }
+      },
+      "RevocationResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "RecoveryPlanRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "checkpoint"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "checkpoint": {
+            "$ref": "#/components/schemas/SignedCheckpoint"
+          }
+        }
+      },
+      "RecoveryPlanResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "recovery",
+          "event"
+        ],
+        "properties": {
+          "recovery": {
+            "$ref": "#/components/schemas/SignedRecovery"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "RecoveryActivationRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "control",
+          "recovery"
+        ],
+        "properties": {
+          "control": {
+            "$ref": "#/components/schemas/SignedControl"
+          },
+          "recovery": {
+            "$ref": "#/components/schemas/SignedRecovery"
+          }
+        }
+      },
+      "RecoveryActivationResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "decision",
+          "event"
+        ],
+        "properties": {
+          "decision": {
+            "$ref": "#/components/schemas/SignedDecision"
+          },
+          "event": {
+            "$ref": "#/components/schemas/SignedEvent"
+          }
+        }
+      },
+      "ApiError": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "code",
+          "message",
+          "requestId"
+        ],
+        "properties": {
+          "code": {
+            "enum": [
+              "DENIED",
+              "MALFORMED",
+              "CONFLICT",
+              "HELD",
+              "UNCERTAIN",
+              "UNAVAILABLE"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          },
+          "requestId": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      }
+    }
+  }
+}

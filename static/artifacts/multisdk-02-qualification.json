@@ -1,0 +1,55 @@
+{
+  "profile": "http6-wasix-delegation-02",
+  "scope": "synthetic single-host pilot; fixture pins are local; no latest-head or external effect claim",
+  "sdks": {
+    "python": {
+      "language": "python",
+      "success": true,
+      "denied": true,
+      "malformed": true,
+      "tamperingRejected": true,
+      "ledgerVerified": true
+    },
+    "go": {
+      "language": "go",
+      "success": true,
+      "denied": true,
+      "malformed": true,
+      "tamperingRejected": true,
+      "ledgerVerified": true
+    },
+    "rust": {
+      "denied": true,
+      "language": "rust",
+      "ledgerVerified": true,
+      "malformed": true,
+      "success": true,
+      "tamperingRejected": true
+    },
+    "csharp": {
+      "language": "csharp",
+      "success": true,
+      "denied": true,
+      "malformed": true,
+      "tamperingRejected": true,
+      "ledgerVerified": true
+    }
+  },
+  "pilotBinarySha256": "a0d26542683a4f988de56f1fb8d75f724a008a0143ac9a8ee7eb083fcbd63043",
+  "ledgerSchema": {
+    "definedEventKinds": 19,
+    "capturedProfile02EventsValidated": 653,
+    "capturedKinds": 17,
+    "codeDerivedSyntheticKinds": [
+      "RECOVERED_REDEMPTION",
+      "DELIVERY_UNCERTAIN"
+    ],
+    "limits": "syntactic validation only; SDK ledger verifier does not validate this schema"
+  },
+  "limitations": [
+    "single host and synthetic identities",
+    "fixture-generated pins are not independent trust anchors",
+    "no claim of current authority, latest ledger head or external effect",
+    "GitHub CI runs SDK unit and build checks but not native circuit integration"
+  ]
+}

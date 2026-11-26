@@ -1,0 +1,9 @@
+{
+  "name": "@http6-org/proposed-sdk",
+  "version": "0.0.1-proposal",
+  "type": "module",
+  "private": true,
+  "description": "Proposed HTTP6 SDK for the existing WASIX delegation pilot",
+  "exports": {".": "./src/index.mjs"},
+  "engines": {"node": ">=20"}
+}

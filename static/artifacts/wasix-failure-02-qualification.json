@@ -1,0 +1,40 @@
+{
+  "profile": "http6-wasix-delegation-02",
+  "status": "experimental local synthetic qualification, not independent production verification",
+  "pilotBinarySha256": "c5e176737228b4430f15766b89e4bc13de256e1e7fc437928ed202d9f1ae3c38",
+  "existingRegression": {
+    "checks": 98,
+    "audit": "AUDIT 98 tests, 167 signed ledger entries, 23 issued operations, 13 effects, 0 restricted effects"
+  },
+  "failureIntegration": {
+    "result": "passed",
+    "categories": [
+      "denied",
+      "held",
+      "malformed",
+      "uncertain"
+    ],
+    "checks": [
+      "historical verification using pinned operator and ledger keys",
+      "altered request digest rejected",
+      "altered category, status, request hash and result hash rejected",
+      "missing signed event rejected",
+      "challenge replay rejected",
+      "uncertain operation retained in redeemed state",
+      "ledger outage returns proof unavailable",
+      "uncertain response retained after request certificate expiry"
+    ]
+  },
+  "sdkIntegration": {
+    "profile02": "three tests passed, including mint and request proofs, committed response, malformed and denied responses, altered core and wrong pin",
+    "profile00": "three compatibility tests passed",
+    "profile01": "pilot compatibility test passed; direct-circuit test skipped in this run"
+  },
+  "schema": "validated against three captured failure proof packages",
+  "limits": [
+    "single host and synthetic identities",
+    "broker observation does not independently prove policy correctness, caller identity or effect state",
+    "no ledger-recorded proof when ledger or verifier is unavailable",
+    "GitHub hosted build does not run separately provisioned WASIX integration tests"
+  ]
+}

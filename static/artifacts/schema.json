@@ -1,0 +1,1462 @@
+{
+  "$defs": {
+    "amount": {
+      "maximum": 2147483647,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "appraisal": {
+      "additionalProperties": false,
+      "properties": {
+        "appraisalPolicy": {
+          "$ref": "#/$defs/id"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "gen": {
+          "$ref": "#/$defs/amount"
+        },
+        "holder": {
+          "$ref": "#/$defs/id"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "appraisal"
+        },
+        "measurement": {
+          "$ref": "#/$defs/hash"
+        },
+        "nbf": {
+          "$ref": "#/$defs/time"
+        },
+        "service": {
+          "$ref": "#/$defs/uri"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "holder",
+        "keyId",
+        "gen",
+        "service",
+        "appraisalPolicy",
+        "measurement",
+        "nbf",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "approval": {
+      "additionalProperties": false,
+      "properties": {
+        "challengeRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "kind": {
+          "const": "approval"
+        },
+        "nbf": {
+          "$ref": "#/$defs/time"
+        },
+        "subject": {
+          "$ref": "#/$defs/id"
+        },
+        "termsRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "challengeRef",
+        "subject",
+        "termsRef",
+        "nbf",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "args": {
+      "additionalProperties": {
+        "$ref": "#/$defs/text"
+      },
+      "maxProperties": 16,
+      "propertyNames": {
+        "pattern": "^[a-z][a-z0-9-]{0,63}$"
+      },
+      "type": "object"
+    },
+    "attempt": {
+      "additionalProperties": false,
+      "properties": {
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "gen": {
+          "$ref": "#/$defs/amount"
+        },
+        "grantRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "holder": {
+          "$ref": "#/$defs/id"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "intentRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "attempt"
+        },
+        "method": {
+          "const": "POST"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "record": {
+          "$ref": "#/$defs/id"
+        },
+        "target": {
+          "$ref": "#/$defs/uri"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "op",
+        "record",
+        "intentRef",
+        "grantRef",
+        "policyRef",
+        "holder",
+        "keyId",
+        "gen",
+        "method",
+        "target",
+        "epoch",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "challenge": {
+      "additionalProperties": false,
+      "properties": {
+        "actorKeyId": {
+          "$ref": "#/$defs/id"
+        },
+        "contextRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "challenge"
+        },
+        "nonce": {
+          "$ref": "#/$defs/hash"
+        },
+        "purpose": {
+          "enum": [
+            "root-approval",
+            "join",
+            "request-proof",
+            "response-proof",
+            "ledger-control"
+          ]
+        },
+        "recipient": {
+          "$ref": "#/$defs/id"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "id",
+        "nonce",
+        "purpose",
+        "contextRef",
+        "actorKeyId",
+        "recipient",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "checkpoint": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "head": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "checkpoint"
+        },
+        "ledger": {
+          "$ref": "#/$defs/id"
+        },
+        "sequence": {
+          "$ref": "#/$defs/amount"
+        },
+        "stateHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "ledger",
+        "sequence",
+        "head",
+        "stateHash",
+        "epoch",
+        "at"
+      ],
+      "type": "object"
+    },
+    "closure": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "audience": {
+          "$ref": "#/$defs/id"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "intentRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "closure"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "permitRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "op",
+        "permitRef",
+        "requestRef",
+        "intentRef",
+        "audience",
+        "epoch",
+        "at"
+      ],
+      "type": "object"
+    },
+    "grant": {
+      "additionalProperties": false,
+      "properties": {
+        "appraisalRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "approvalRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "joinRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "grant"
+        },
+        "parentRequestRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "terms": {
+          "$ref": "#/$defs/terms"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "terms",
+        "approvalRef",
+        "parentRequestRef",
+        "joinRef",
+        "appraisalRef"
+      ],
+      "type": "object"
+    },
+    "hash": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-z0-9][a-z0-9-]{0,63}$",
+      "type": "string"
+    },
+    "intent": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/id"
+        },
+        "args": {
+          "$ref": "#/$defs/args"
+        },
+        "audience": {
+          "$ref": "#/$defs/id"
+        },
+        "inputHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "intent"
+        },
+        "purpose": {
+          "$ref": "#/$defs/id"
+        },
+        "releaseTo": {
+          "$ref": "#/$defs/id"
+        },
+        "resource": {
+          "$ref": "#/$defs/id"
+        },
+        "rootId": {
+          "$ref": "#/$defs/id"
+        },
+        "tenant": {
+          "$ref": "#/$defs/id"
+        },
+        "units": {
+          "$ref": "#/$defs/amount"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "rootId",
+        "tenant",
+        "purpose",
+        "audience",
+        "action",
+        "resource",
+        "args",
+        "inputHash",
+        "releaseTo",
+        "units"
+      ],
+      "type": "object"
+    },
+    "join": {
+      "additionalProperties": false,
+      "properties": {
+        "challengeRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "gen": {
+          "$ref": "#/$defs/amount"
+        },
+        "holder": {
+          "$ref": "#/$defs/id"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "join"
+        },
+        "nbf": {
+          "$ref": "#/$defs/time"
+        },
+        "termsRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "challengeRef",
+        "holder",
+        "keyId",
+        "gen",
+        "termsRef",
+        "nbf",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "ledgerControl": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "check",
+            "redeem",
+            "settle",
+            "close",
+            "inspect"
+          ]
+        },
+        "caller": {
+          "$ref": "#/$defs/id"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "idempotencyKey": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "ledger-control"
+        },
+        "nonce": {
+          "$ref": "#/$defs/hash"
+        },
+        "permitRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "presentationRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "action",
+        "requestRef",
+        "permitRef",
+        "presentationRef",
+        "caller",
+        "nonce",
+        "idempotencyKey",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "ledgerDecision": {
+      "additionalProperties": false,
+      "properties": {
+        "caller": {
+          "$ref": "#/$defs/id"
+        },
+        "controlRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "decision": {
+          "enum": [
+            "allowed",
+            "denied",
+            "held",
+            "redeemed",
+            "settled",
+            "closed"
+          ]
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "fence": {
+          "$ref": "#/$defs/amount"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "kind": {
+          "const": "ledger-decision"
+        },
+        "nonce": {
+          "$ref": "#/$defs/hash"
+        },
+        "permitRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "sequence": {
+          "$ref": "#/$defs/amount"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "controlRef",
+        "requestRef",
+        "permitRef",
+        "caller",
+        "nonce",
+        "decision",
+        "sequence",
+        "epoch",
+        "fence",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "ledgerEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "actor": {
+          "$ref": "#/$defs/id"
+        },
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "event": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "ledger-event"
+        },
+        "ledger": {
+          "$ref": "#/$defs/id"
+        },
+        "objectRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "prev": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "sequence": {
+          "$ref": "#/$defs/amount"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "ledger",
+        "sequence",
+        "prev",
+        "event",
+        "actor",
+        "op",
+        "objectRef",
+        "at"
+      ],
+      "type": "object"
+    },
+    "outcome": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "audience": {
+          "$ref": "#/$defs/id"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "intentRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "outcome"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "permitRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "resultHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "row": {
+          "$ref": "#/$defs/id"
+        },
+        "units": {
+          "$ref": "#/$defs/amount"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "op",
+        "permitRef",
+        "requestRef",
+        "intentRef",
+        "audience",
+        "row",
+        "resultHash",
+        "units",
+        "epoch",
+        "at"
+      ],
+      "type": "object"
+    },
+    "parentRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "childTermsRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "joinRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "parent-request"
+        },
+        "nbf": {
+          "$ref": "#/$defs/time"
+        },
+        "parentGrantRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "parentGrantRef",
+        "childTermsRef",
+        "joinRef",
+        "nbf",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "permit": {
+      "additionalProperties": false,
+      "properties": {
+        "audience": {
+          "$ref": "#/$defs/id"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "fence": {
+          "$ref": "#/$defs/amount"
+        },
+        "grantRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "holder": {
+          "$ref": "#/$defs/id"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "intentRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "permit"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "proofRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "record": {
+          "$ref": "#/$defs/id"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "units": {
+          "$ref": "#/$defs/amount"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "id",
+        "op",
+        "record",
+        "intentRef",
+        "requestRef",
+        "proofRef",
+        "grantRef",
+        "policyRef",
+        "holder",
+        "keyId",
+        "audience",
+        "units",
+        "epoch",
+        "fence",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "policy": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "kind": {
+          "const": "policy"
+        },
+        "limit": {
+          "$ref": "#/$defs/amount"
+        },
+        "maxDepth": {
+          "$ref": "#/$defs/amount"
+        },
+        "per": {
+          "$ref": "#/$defs/amount"
+        },
+        "pool": {
+          "$ref": "#/$defs/id"
+        },
+        "purpose": {
+          "$ref": "#/$defs/id"
+        },
+        "rules": {
+          "items": {
+            "$ref": "#/$defs/rule"
+          },
+          "maxItems": 8,
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "survive": {
+          "type": "boolean"
+        },
+        "tenant": {
+          "$ref": "#/$defs/id"
+        },
+        "unit": {
+          "$ref": "#/$defs/id"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "id",
+        "tenant",
+        "purpose",
+        "rules",
+        "unit",
+        "pool",
+        "limit",
+        "per",
+        "maxDepth",
+        "survive"
+      ],
+      "type": "object"
+    },
+    "proof": {
+      "additionalProperties": false,
+      "properties": {
+        "challenge": {
+          "$ref": "#/$defs/signed"
+        },
+        "result": {
+          "$ref": "#/$defs/signed"
+        }
+      },
+      "required": [
+        "challenge",
+        "result"
+      ],
+      "type": "object"
+    },
+    "proofResult": {
+      "additionalProperties": false,
+      "properties": {
+        "actorKeyId": {
+          "$ref": "#/$defs/id"
+        },
+        "challengeRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "contextRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "direction": {
+          "enum": [
+            "request",
+            "response",
+            "control"
+          ]
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "kind": {
+          "const": "proof-result"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "proofType": {
+          "const": "designated-verifier-attestation"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        },
+        "verdict": {
+          "const": "accepted"
+        },
+        "witnessCommitment": {
+          "$ref": "#/$defs/hash"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "proofType",
+        "direction",
+        "contextRef",
+        "challengeRef",
+        "actorKeyId",
+        "policyRef",
+        "witnessCommitment",
+        "verdict",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "recovery": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "checkpointRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "recovery"
+        },
+        "ledger": {
+          "$ref": "#/$defs/id"
+        },
+        "nextEpoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "rootId": {
+          "$ref": "#/$defs/id"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "ledger",
+        "rootId",
+        "checkpointRef",
+        "nextEpoch",
+        "at"
+      ],
+      "type": "object"
+    },
+    "request": {
+      "additionalProperties": false,
+      "properties": {
+        "attemptRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "request"
+        },
+        "proofRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "attemptRef",
+        "proofRef"
+      ],
+      "type": "object"
+    },
+    "requestPacket": {
+      "additionalProperties": false,
+      "properties": {
+        "appraisal": {
+          "$ref": "#/$defs/signed"
+        },
+        "attempt": {
+          "$ref": "#/$defs/attempt"
+        },
+        "grantChain": {
+          "items": {
+            "$ref": "#/$defs/signed"
+          },
+          "maxItems": 9,
+          "minItems": 1,
+          "type": "array"
+        },
+        "input": {
+          "maxLength": 131072,
+          "pattern": "^(?:[0-9a-f]{2})*$",
+          "type": "string"
+        },
+        "intent": {
+          "$ref": "#/$defs/intent"
+        },
+        "policies": {
+          "items": {
+            "$ref": "#/$defs/policy"
+          },
+          "maxItems": 9,
+          "minItems": 1,
+          "type": "array"
+        },
+        "proof": {
+          "$ref": "#/$defs/proof"
+        },
+        "request": {
+          "$ref": "#/$defs/signed"
+        }
+      },
+      "required": [
+        "intent",
+        "input",
+        "attempt",
+        "proof",
+        "request",
+        "grantChain",
+        "policies",
+        "appraisal"
+      ],
+      "type": "object"
+    },
+    "response": {
+      "additionalProperties": false,
+      "properties": {
+        "contextRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "kind": {
+          "const": "response"
+        },
+        "proofRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "contextRef",
+        "proofRef"
+      ],
+      "type": "object"
+    },
+    "responseContext": {
+      "additionalProperties": false,
+      "properties": {
+        "contentType": {
+          "const": "application/json"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "iat": {
+          "$ref": "#/$defs/time"
+        },
+        "kind": {
+          "const": "response-context"
+        },
+        "op": {
+          "$ref": "#/$defs/id"
+        },
+        "outcomeRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "recipientKeyId": {
+          "$ref": "#/$defs/id"
+        },
+        "record": {
+          "$ref": "#/$defs/id"
+        },
+        "requestRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "resourceKeyId": {
+          "$ref": "#/$defs/id"
+        },
+        "resultHash": {
+          "$ref": "#/$defs/hash"
+        },
+        "status": {
+          "maximum": 599,
+          "minimum": 100,
+          "type": "integer"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "op",
+        "record",
+        "requestRef",
+        "recipientKeyId",
+        "resourceKeyId",
+        "policyRef",
+        "status",
+        "contentType",
+        "resultHash",
+        "outcomeRef",
+        "iat",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "responsePacket": {
+      "additionalProperties": false,
+      "properties": {
+        "context": {
+          "$ref": "#/$defs/responseContext"
+        },
+        "outcome": {
+          "$ref": "#/$defs/signed"
+        },
+        "proof": {
+          "$ref": "#/$defs/proof"
+        },
+        "response": {
+          "$ref": "#/$defs/signed"
+        },
+        "result": {
+          "maxLength": 131072,
+          "pattern": "^(?:[0-9a-f]{2})*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "context",
+        "result",
+        "proof",
+        "outcome",
+        "response"
+      ],
+      "type": "object"
+    },
+    "revocation": {
+      "additionalProperties": false,
+      "properties": {
+        "at": {
+          "$ref": "#/$defs/time"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "fence": {
+          "$ref": "#/$defs/amount"
+        },
+        "kind": {
+          "const": "revocation"
+        },
+        "rootId": {
+          "$ref": "#/$defs/id"
+        },
+        "v": {
+          "const": "http6-guide-01"
+        }
+      },
+      "required": [
+        "v",
+        "kind",
+        "rootId",
+        "epoch",
+        "fence",
+        "at"
+      ],
+      "type": "object"
+    },
+    "rule": {
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "$ref": "#/$defs/id"
+        },
+        "args": {
+          "$ref": "#/$defs/args"
+        },
+        "audience": {
+          "$ref": "#/$defs/id"
+        },
+        "releaseTo": {
+          "$ref": "#/$defs/id"
+        },
+        "resource": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "action",
+        "resource",
+        "audience",
+        "releaseTo",
+        "args"
+      ],
+      "type": "object"
+    },
+    "sighex": {
+      "pattern": "^[0-9a-f]{128}$",
+      "type": "string"
+    },
+    "signature": {
+      "additionalProperties": false,
+      "properties": {
+        "alg": {
+          "const": "Ed25519"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "value": {
+          "$ref": "#/$defs/sighex"
+        }
+      },
+      "required": [
+        "alg",
+        "keyId",
+        "value"
+      ],
+      "type": "object"
+    },
+    "signed": {
+      "additionalProperties": false,
+      "properties": {
+        "payload": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/approval"
+            },
+            {
+              "$ref": "#/$defs/join"
+            },
+            {
+              "$ref": "#/$defs/parentRequest"
+            },
+            {
+              "$ref": "#/$defs/grant"
+            },
+            {
+              "$ref": "#/$defs/appraisal"
+            },
+            {
+              "$ref": "#/$defs/challenge"
+            },
+            {
+              "$ref": "#/$defs/proofResult"
+            },
+            {
+              "$ref": "#/$defs/request"
+            },
+            {
+              "$ref": "#/$defs/permit"
+            },
+            {
+              "$ref": "#/$defs/outcome"
+            },
+            {
+              "$ref": "#/$defs/closure"
+            },
+            {
+              "$ref": "#/$defs/response"
+            },
+            {
+              "$ref": "#/$defs/ledgerControl"
+            },
+            {
+              "$ref": "#/$defs/ledgerDecision"
+            },
+            {
+              "$ref": "#/$defs/ledgerEvent"
+            },
+            {
+              "$ref": "#/$defs/checkpoint"
+            },
+            {
+              "$ref": "#/$defs/revocation"
+            },
+            {
+              "$ref": "#/$defs/recovery"
+            }
+          ]
+        },
+        "signature": {
+          "$ref": "#/$defs/signature"
+        }
+      },
+      "required": [
+        "payload",
+        "signature"
+      ],
+      "type": "object"
+    },
+    "terms": {
+      "additionalProperties": false,
+      "properties": {
+        "depth": {
+          "$ref": "#/$defs/amount"
+        },
+        "epoch": {
+          "$ref": "#/$defs/amount"
+        },
+        "exp": {
+          "$ref": "#/$defs/time"
+        },
+        "gen": {
+          "$ref": "#/$defs/amount"
+        },
+        "holder": {
+          "$ref": "#/$defs/id"
+        },
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "keyId": {
+          "$ref": "#/$defs/id"
+        },
+        "limit": {
+          "$ref": "#/$defs/amount"
+        },
+        "nbf": {
+          "$ref": "#/$defs/time"
+        },
+        "origin": {
+          "$ref": "#/$defs/id"
+        },
+        "parentGrantRef": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/hash"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "per": {
+          "$ref": "#/$defs/amount"
+        },
+        "policyRef": {
+          "$ref": "#/$defs/hash"
+        },
+        "rootId": {
+          "$ref": "#/$defs/id"
+        },
+        "service": {
+          "$ref": "#/$defs/uri"
+        }
+      },
+      "required": [
+        "id",
+        "rootId",
+        "parentGrantRef",
+        "origin",
+        "holder",
+        "keyId",
+        "gen",
+        "service",
+        "policyRef",
+        "depth",
+        "limit",
+        "per",
+        "epoch",
+        "nbf",
+        "exp"
+      ],
+      "type": "object"
+    },
+    "text": {
+      "maxLength": 256,
+      "minLength": 1,
+      "pattern": "^[ -~]+$",
+      "type": "string"
+    },
+    "time": {
+      "maximum": 253402300799,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "uri": {
+      "maxLength": 2048,
+      "minLength": 1,
+      "pattern": "^https://[a-z0-9][a-z0-9.-]*(?::[0-9]{1,5})?/[A-Za-z0-9._~/-]*$",
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Closed syntactic schemas for a proposed educational profile. Semantic, trust, replay, policy and effect checks are required separately.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/policy"
+    },
+    {
+      "$ref": "#/$defs/intent"
+    },
+    {
+      "$ref": "#/$defs/attempt"
+    },
+    {
+      "$ref": "#/$defs/responseContext"
+    },
+    {
+      "$ref": "#/$defs/requestPacket"
+    },
+    {
+      "$ref": "#/$defs/responsePacket"
+    },
+    {
+      "$ref": "#/$defs/signed"
+    }
+  ],
+  "title": "HTTP6 guide proposed profile models, draft 01"
+}

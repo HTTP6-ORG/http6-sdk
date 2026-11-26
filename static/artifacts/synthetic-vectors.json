@@ -1,0 +1,802 @@
+{
+  "notice": "Public synthetic fixture. Signatures are real Ed25519. Proof verdicts are simulated attestations, not circuit proofs, human approvals, ledger operations, or resource effects.",
+  "profile": "http6-guide-01",
+  "time": 1800000000,
+  "publicKeys": {
+    "human-key": "0c546bb60eb303c71726af4047cdfa3eb80b5f1bb827ce773579c4ae2d0a6c9d",
+    "root-key": "303ba3a4f5be4ab973a5786f2a0b202b870a738427eda01852c67593b542da64",
+    "child-key": "1c5f4ea345b9c55c2b8400180a0ac8a190c4823761bd1057b937402c10c693d0",
+    "issuer-key": "176374acf7ed2bdf16466746637c4524aae8d635d7b19e8771a51945c37f48fe",
+    "appraiser-key": "ce6aeb443d8277203956510907bd0955393652bb90c244d63e84371dbbcb7df4",
+    "verifier-key": "ab42e57d86cc010e23997bca350fb7477320b40a6ce6c6e4f9f9b1dec28ceae3",
+    "state-key": "41a07b02a5548ba8ae04bd09986674a61d64d6d40ed877e48cb9384f8c9c9436",
+    "resource-key": "b25c2e1a98e8f7e7a87e0f68b43836604dbf4f624a1916115868a7c7bebaebf0",
+    "keeper-key": "8da53730936744aa4e7992845e887638a213c90d2249b1d634347728e6aed04b"
+  },
+  "rootPolicy": {
+    "v": "http6-guide-01",
+    "kind": "policy",
+    "id": "policy-root",
+    "tenant": "lab",
+    "purpose": "month-close",
+    "rules": [
+      {
+        "action": "report-read",
+        "resource": "monthly-total",
+        "audience": "reports-db",
+        "releaseTo": "reader-1",
+        "args": {
+          "period": "2026-10",
+          "project": "p7"
+        }
+      }
+    ],
+    "unit": "credits",
+    "pool": "pool-p7",
+    "limit": 10,
+    "per": 6,
+    "maxDepth": 1,
+    "survive": false
+  },
+  "childPolicy": {
+    "v": "http6-guide-01",
+    "kind": "policy",
+    "id": "policy-child",
+    "tenant": "lab",
+    "purpose": "month-close",
+    "rules": [
+      {
+        "action": "report-read",
+        "resource": "monthly-total",
+        "audience": "reports-db",
+        "releaseTo": "reader-1",
+        "args": {
+          "period": "2026-10",
+          "project": "p7"
+        }
+      }
+    ],
+    "unit": "credits",
+    "pool": "pool-p7",
+    "limit": 6,
+    "per": 6,
+    "maxDepth": 0,
+    "survive": false
+  },
+  "rootTerms": {
+    "id": "root-1",
+    "rootId": "root-1",
+    "parentGrantRef": null,
+    "origin": "human-1",
+    "holder": "root-worker",
+    "keyId": "root-key",
+    "gen": 1,
+    "service": "https://reports.example/operate",
+    "policyRef": "cb52bb02ed3ba7ffa44cc04e4b70cbd193cd505cbfbdb90dee869c5deed2a5f7",
+    "depth": 1,
+    "limit": 10,
+    "per": 6,
+    "epoch": 1,
+    "nbf": 1799999990,
+    "exp": 1800000600
+  },
+  "rootChallenge": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "challenge",
+      "id": "root-challenge",
+      "nonce": "3581aad0dfe502c0bcd9d97d64864e06cb66f8d616b02386d5db3c066a37870b",
+      "purpose": "root-approval",
+      "contextRef": "ff3d283b122876538591d41db62bb5354b13a49ffa3ea72064faf29a85ebd699",
+      "actorKeyId": "human-key",
+      "recipient": "admission",
+      "iat": 1800000000,
+      "exp": 1800000030
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "verifier-key",
+      "value": "ecda7b8b562a19d4ddf5bbd7a7a77784d04ffdb6d08eb40af091ec7653a9307349a40dca756114849feb5ace569ef5ee675ae64183915f2ec02daa80533bce0c"
+    }
+  },
+  "approval": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "approval",
+      "challengeRef": "7b97ee56414520efdec0e59edf82ab2664c8f04eef640bcf97615020e494a17d",
+      "subject": "human-1",
+      "termsRef": "ff3d283b122876538591d41db62bb5354b13a49ffa3ea72064faf29a85ebd699",
+      "nbf": 1800000000,
+      "exp": 1800000030
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "human-key",
+      "value": "e4be7aede4b515308f28a7114750d695627ab86072c53501dbeda9a0ea2037c26a8e012843036b47aea3f5e6f3761e658a191aa066361fa54460f6073aa18109"
+    }
+  },
+  "rootJoinChallenge": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "challenge",
+      "id": "root-join",
+      "nonce": "79407ed27f37c98f15b4fea680ebce17dba66cbef0cd6aa9d23ba7d6e6058750",
+      "purpose": "join",
+      "contextRef": "ff3d283b122876538591d41db62bb5354b13a49ffa3ea72064faf29a85ebd699",
+      "actorKeyId": "root-key",
+      "recipient": "admission",
+      "iat": 1800000000,
+      "exp": 1800000030
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "verifier-key",
+      "value": "fa1b56c99d2362b84b55cc53e90d92f7191fd6b58eff1f26ead3d46bd9683c4aae864abe3a76c6b58e6f93216eb9fc6e7a3e7d2576674f1200df7fa71189dd08"
+    }
+  },
+  "rootJoin": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "join",
+      "challengeRef": "9a13deb7f47ee1c5fe8036998060d330c7ed9f86bfe6d7f7fb202124e7d0f1a6",
+      "holder": "root-worker",
+      "keyId": "root-key",
+      "gen": 1,
+      "termsRef": "ff3d283b122876538591d41db62bb5354b13a49ffa3ea72064faf29a85ebd699",
+      "nbf": 1800000000,
+      "exp": 1800000030
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "root-key",
+      "value": "19e13afc1065582ba839eda589ad135eeafb7012587db5e2147064d9e88af6133768ee8d6162fe944bfabbb909de58074b02723d960de6d76897a494044c0107"
+    }
+  },
+  "rootAppraisal": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "appraisal",
+      "holder": "root-worker",
+      "keyId": "root-key",
+      "gen": 1,
+      "service": "https://reports.example/operate",
+      "appraisalPolicy": "appraisal-1",
+      "measurement": "55f8f4db595535f1d5065767c66341857a5b6f08e49cc684a825021d37b159ab",
+      "nbf": 1799999999,
+      "exp": 1800000300
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "appraiser-key",
+      "value": "ba93037ef49f2c2690d897ca1189570d2107d49bbe7820a672771ed0065857c0f0e18f491ec49757cf405966442d473eb9ffb987fd3e7fa8a4eba4211c65c10d"
+    }
+  },
+  "root": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "grant",
+      "terms": {
+        "id": "root-1",
+        "rootId": "root-1",
+        "parentGrantRef": null,
+        "origin": "human-1",
+        "holder": "root-worker",
+        "keyId": "root-key",
+        "gen": 1,
+        "service": "https://reports.example/operate",
+        "policyRef": "cb52bb02ed3ba7ffa44cc04e4b70cbd193cd505cbfbdb90dee869c5deed2a5f7",
+        "depth": 1,
+        "limit": 10,
+        "per": 6,
+        "epoch": 1,
+        "nbf": 1799999990,
+        "exp": 1800000600
+      },
+      "approvalRef": "0408b9c7f2e5ecaba808f9e150b1550c6287dd9872c918f3e99b7ca1c60cad28",
+      "parentRequestRef": null,
+      "joinRef": "e9976da981b2eb45b14098be47337e77f12602b9691171c5a80678bfbe9e69a8",
+      "appraisalRef": "0d65b745b4c318c434c4d646378b6c50b358f458ff59624f9a94b78787a97085"
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "issuer-key",
+      "value": "5ddc6d53da633502decfe893fb6d460e103a46ee27f11f085bd9db01e62602b3f2ce44c3043cb15ae0807e45805f263ad52e9153963bbfbc60b815d1d5b81805"
+    }
+  },
+  "childTerms": {
+    "id": "grant-child",
+    "rootId": "root-1",
+    "parentGrantRef": "76583da5e4e5e40b8acb6896847f19bf071408724726ca0f8b11cbc2945c2c6b",
+    "origin": "human-1",
+    "holder": "reader-1",
+    "keyId": "child-key",
+    "gen": 1,
+    "service": "https://reports.example/operate",
+    "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+    "depth": 0,
+    "limit": 6,
+    "per": 6,
+    "epoch": 1,
+    "nbf": 1800000000,
+    "exp": 1800000300
+  },
+  "childChallenge": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "challenge",
+      "id": "child-join",
+      "nonce": "f2918ce86facd036775740f1b4f4876530e045a285f9ecf891bee871f2e4e64c",
+      "purpose": "join",
+      "contextRef": "3b8e575d4b1821ebb8e4fd456d158777a109ee3501d7923879ea6dc558636900",
+      "actorKeyId": "child-key",
+      "recipient": "delegation",
+      "iat": 1800000001,
+      "exp": 1800000031
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "verifier-key",
+      "value": "fc47bd900a03161f84fd7b9f69050a4ef91584ca69c96429ec6cdb39ef44c091c315f51f7ff228a94a3d787dd05f763eb923ce39f4367b1721a7ba51acc39b02"
+    }
+  },
+  "childJoin": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "join",
+      "challengeRef": "3c33d34a70ab714cd692e684e2ea458f2d24b06bfac245730f6760fd1d10f154",
+      "holder": "reader-1",
+      "keyId": "child-key",
+      "gen": 1,
+      "termsRef": "3b8e575d4b1821ebb8e4fd456d158777a109ee3501d7923879ea6dc558636900",
+      "nbf": 1800000001,
+      "exp": 1800000031
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "child-key",
+      "value": "9c3d3514bb492bbc4a79ae22d7457647c9ff5fd1d50fd4dfec65c001f62b252d01e406f78c39d61f11b2136f2b29abb163930fcb889751c9c67563a4eaf81b09"
+    }
+  },
+  "parentRequest": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "parent-request",
+      "parentGrantRef": "76583da5e4e5e40b8acb6896847f19bf071408724726ca0f8b11cbc2945c2c6b",
+      "childTermsRef": "3b8e575d4b1821ebb8e4fd456d158777a109ee3501d7923879ea6dc558636900",
+      "joinRef": "59eae378f620cf52da41837e792bc8e413369653fc38495e1c6162da68fd71a3",
+      "nbf": 1800000001,
+      "exp": 1800000031
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "root-key",
+      "value": "36f53672e0ed366bb47fbb96d0263471399f4c6d2c209551212195460d52edf105ef0d87ca2196adb6fbeb2b310bf674c748a3fb47ab8a92a5c71f467d5ea70d"
+    }
+  },
+  "childAppraisal": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "appraisal",
+      "holder": "reader-1",
+      "keyId": "child-key",
+      "gen": 1,
+      "service": "https://reports.example/operate",
+      "appraisalPolicy": "appraisal-1",
+      "measurement": "4d8a40e3678448de943bfa65854c91257a4069523875ca82486c094e117a7266",
+      "nbf": 1799999999,
+      "exp": 1800000300
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "appraiser-key",
+      "value": "5efcd0a735a07dbb701b163035e3b863f1cc5c95a343048ad21dbc0004ac9a0867aebda697beec7d213818d3f3caf1da829910ceb57d80ec0a28cdcdfcf3cd04"
+    }
+  },
+  "child": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "grant",
+      "terms": {
+        "id": "grant-child",
+        "rootId": "root-1",
+        "parentGrantRef": "76583da5e4e5e40b8acb6896847f19bf071408724726ca0f8b11cbc2945c2c6b",
+        "origin": "human-1",
+        "holder": "reader-1",
+        "keyId": "child-key",
+        "gen": 1,
+        "service": "https://reports.example/operate",
+        "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+        "depth": 0,
+        "limit": 6,
+        "per": 6,
+        "epoch": 1,
+        "nbf": 1800000000,
+        "exp": 1800000300
+      },
+      "approvalRef": null,
+      "parentRequestRef": "ddf6b673c27e0a905dd6c2630e92fb6761435deef09323fe77f19036f9c24a9d",
+      "joinRef": "59eae378f620cf52da41837e792bc8e413369653fc38495e1c6162da68fd71a3",
+      "appraisalRef": "ba1152662d46ba598c3a47ecd488093bca3d2a64385f49928f4ff630aee40dcd"
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "issuer-key",
+      "value": "2df77edbc2aeea9d343297aff28ae9fa97e91c88d136dceba0f5d818412377b3377b693ae6baedb57cde75f7ca66147b63844db1387255ddbb55ed1576366f0b"
+    }
+  },
+  "inputHex": "",
+  "requestPacket": {
+    "intent": {
+      "v": "http6-guide-01",
+      "kind": "intent",
+      "rootId": "root-1",
+      "tenant": "lab",
+      "purpose": "month-close",
+      "audience": "reports-db",
+      "action": "report-read",
+      "resource": "monthly-total",
+      "args": {
+        "period": "2026-10",
+        "project": "p7"
+      },
+      "inputHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "releaseTo": "reader-1",
+      "units": 6
+    },
+    "input": "",
+    "attempt": {
+      "v": "http6-guide-01",
+      "kind": "attempt",
+      "op": "op-42",
+      "record": "record-42",
+      "intentRef": "8e7c37598a9a78fc0e36d1bdbcc2f897210b17aeb86ee4d8a2a837303837ca65",
+      "grantRef": "64a443fdaee585425159455305215f256c650fef09aab442f41fa2fea22ce88c",
+      "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+      "holder": "reader-1",
+      "keyId": "child-key",
+      "gen": 1,
+      "method": "POST",
+      "target": "https://reports.example/operate",
+      "epoch": 1,
+      "iat": 1800000002,
+      "exp": 1800000025
+    },
+    "proof": {
+      "challenge": {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "challenge",
+          "id": "request-challenge",
+          "nonce": "a53c138d33e9d3d4839409e6a3935f295aad2917bd4c10d04f640fd33dd4c9f8",
+          "purpose": "request-proof",
+          "contextRef": "5aa89305e5c2fd1b923cebb007cf0a3a19aab4276bdf4984c92d34bec1477fbb",
+          "actorKeyId": "child-key",
+          "recipient": "resource",
+          "iat": 1800000003,
+          "exp": 1800000033
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "verifier-key",
+          "value": "d2ca62ce56fb89c9dc2f42e3790104d2ec13dc011458e5a95c6cff498cc902521719e2420bdb69203d1399a1650609403df19e77f0f0c98de3321a3d2028f104"
+        }
+      },
+      "result": {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "proof-result",
+          "proofType": "designated-verifier-attestation",
+          "direction": "request",
+          "contextRef": "5aa89305e5c2fd1b923cebb007cf0a3a19aab4276bdf4984c92d34bec1477fbb",
+          "challengeRef": "2254fa9868d53247534206ca335544b966355f792e10bed103beef3f15c4b6b9",
+          "actorKeyId": "child-key",
+          "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+          "witnessCommitment": "5b977604efd52316becdeeb2f8efbd61d671b9a28da4adfd40e71b5ebf84c9ba",
+          "verdict": "accepted",
+          "iat": 1800000003,
+          "exp": 1800000023
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "verifier-key",
+          "value": "65111af1db3aaf2c76582461eac0331527d5a45ddd7d7c43c1b234bec65767d71b9ebe8465b6b95ca2e7a7ad1a8d88287b6cee4877bc8920e096752d183d110a"
+        }
+      }
+    },
+    "request": {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "request",
+        "attemptRef": "5aa89305e5c2fd1b923cebb007cf0a3a19aab4276bdf4984c92d34bec1477fbb",
+        "proofRef": "fcddf697094564f51c2299bbd15b360167fd8467baddf2a7086ff61140a2999d"
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "child-key",
+        "value": "71c028645f941061b772267ff34329963ab57081455efcb0eb1dfb02d976aa5fbd518a4cb4913cd3f48e0572e7010a2e546db6f00d5a57379b31a8f599d70008"
+      }
+    },
+    "grantChain": [
+      {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "grant",
+          "terms": {
+            "id": "root-1",
+            "rootId": "root-1",
+            "parentGrantRef": null,
+            "origin": "human-1",
+            "holder": "root-worker",
+            "keyId": "root-key",
+            "gen": 1,
+            "service": "https://reports.example/operate",
+            "policyRef": "cb52bb02ed3ba7ffa44cc04e4b70cbd193cd505cbfbdb90dee869c5deed2a5f7",
+            "depth": 1,
+            "limit": 10,
+            "per": 6,
+            "epoch": 1,
+            "nbf": 1799999990,
+            "exp": 1800000600
+          },
+          "approvalRef": "0408b9c7f2e5ecaba808f9e150b1550c6287dd9872c918f3e99b7ca1c60cad28",
+          "parentRequestRef": null,
+          "joinRef": "e9976da981b2eb45b14098be47337e77f12602b9691171c5a80678bfbe9e69a8",
+          "appraisalRef": "0d65b745b4c318c434c4d646378b6c50b358f458ff59624f9a94b78787a97085"
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "issuer-key",
+          "value": "5ddc6d53da633502decfe893fb6d460e103a46ee27f11f085bd9db01e62602b3f2ce44c3043cb15ae0807e45805f263ad52e9153963bbfbc60b815d1d5b81805"
+        }
+      },
+      {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "grant",
+          "terms": {
+            "id": "grant-child",
+            "rootId": "root-1",
+            "parentGrantRef": "76583da5e4e5e40b8acb6896847f19bf071408724726ca0f8b11cbc2945c2c6b",
+            "origin": "human-1",
+            "holder": "reader-1",
+            "keyId": "child-key",
+            "gen": 1,
+            "service": "https://reports.example/operate",
+            "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+            "depth": 0,
+            "limit": 6,
+            "per": 6,
+            "epoch": 1,
+            "nbf": 1800000000,
+            "exp": 1800000300
+          },
+          "approvalRef": null,
+          "parentRequestRef": "ddf6b673c27e0a905dd6c2630e92fb6761435deef09323fe77f19036f9c24a9d",
+          "joinRef": "59eae378f620cf52da41837e792bc8e413369653fc38495e1c6162da68fd71a3",
+          "appraisalRef": "ba1152662d46ba598c3a47ecd488093bca3d2a64385f49928f4ff630aee40dcd"
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "issuer-key",
+          "value": "2df77edbc2aeea9d343297aff28ae9fa97e91c88d136dceba0f5d818412377b3377b693ae6baedb57cde75f7ca66147b63844db1387255ddbb55ed1576366f0b"
+        }
+      }
+    ],
+    "policies": [
+      {
+        "v": "http6-guide-01",
+        "kind": "policy",
+        "id": "policy-root",
+        "tenant": "lab",
+        "purpose": "month-close",
+        "rules": [
+          {
+            "action": "report-read",
+            "resource": "monthly-total",
+            "audience": "reports-db",
+            "releaseTo": "reader-1",
+            "args": {
+              "period": "2026-10",
+              "project": "p7"
+            }
+          }
+        ],
+        "unit": "credits",
+        "pool": "pool-p7",
+        "limit": 10,
+        "per": 6,
+        "maxDepth": 1,
+        "survive": false
+      },
+      {
+        "v": "http6-guide-01",
+        "kind": "policy",
+        "id": "policy-child",
+        "tenant": "lab",
+        "purpose": "month-close",
+        "rules": [
+          {
+            "action": "report-read",
+            "resource": "monthly-total",
+            "audience": "reports-db",
+            "releaseTo": "reader-1",
+            "args": {
+              "period": "2026-10",
+              "project": "p7"
+            }
+          }
+        ],
+        "unit": "credits",
+        "pool": "pool-p7",
+        "limit": 6,
+        "per": 6,
+        "maxDepth": 0,
+        "survive": false
+      }
+    ],
+    "appraisal": {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "appraisal",
+        "holder": "reader-1",
+        "keyId": "child-key",
+        "gen": 1,
+        "service": "https://reports.example/operate",
+        "appraisalPolicy": "appraisal-1",
+        "measurement": "4d8a40e3678448de943bfa65854c91257a4069523875ca82486c094e117a7266",
+        "nbf": 1799999999,
+        "exp": 1800000300
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "appraiser-key",
+        "value": "5efcd0a735a07dbb701b163035e3b863f1cc5c95a343048ad21dbc0004ac9a0867aebda697beec7d213818d3f3caf1da829910ceb57d80ec0a28cdcdfcf3cd04"
+      }
+    }
+  },
+  "permit": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "permit",
+      "id": "permit-42",
+      "op": "op-42",
+      "record": "record-42",
+      "intentRef": "8e7c37598a9a78fc0e36d1bdbcc2f897210b17aeb86ee4d8a2a837303837ca65",
+      "requestRef": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+      "proofRef": "fcddf697094564f51c2299bbd15b360167fd8467baddf2a7086ff61140a2999d",
+      "grantRef": "64a443fdaee585425159455305215f256c650fef09aab442f41fa2fea22ce88c",
+      "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+      "holder": "reader-1",
+      "keyId": "child-key",
+      "audience": "reports-db",
+      "units": 6,
+      "epoch": 1,
+      "fence": 1,
+      "iat": 1800000004,
+      "exp": 1800000020
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "state-key",
+      "value": "5f3c2f70eb7269971748d5f22bc1d85cd2177a639924467bc00729e4a581ffc67a75b65418c295f705e10c6a19aef9782e48c7f98c62c65e4a4540d8cd37e205"
+    }
+  },
+  "control": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "ledger-control",
+      "action": "redeem",
+      "requestRef": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+      "permitRef": "ebad1ef7857aeb6950624cae3c423704a80b3736e22b8baeef59445aa15e1acb",
+      "presentationRef": "8c0122f5951c95a87b9c17967dcf7274985c5e67780d8e835a80210de56c551f",
+      "caller": "reports-db",
+      "nonce": "30e54db2c60b079f95a84392fbdb6b3385f57967adf148973bc53c2fd78d3246",
+      "idempotencyKey": "redeem-42",
+      "iat": 1800000005,
+      "exp": 1800000020
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "resource-key",
+      "value": "b17450e72020431c33cff6608bb54c27c487c4dbc69988c81b2fc69b4f659546bbe85800b77b8efcf4b5da527e4d8201c62576e886fbc8117415f7fcb145c206"
+    }
+  },
+  "decision": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "ledger-decision",
+      "controlRef": "6d0cff5cc3ddbea7faa12a0c842356afa4030d9feff8b641f88eaf173fec5d15",
+      "requestRef": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+      "permitRef": "ebad1ef7857aeb6950624cae3c423704a80b3736e22b8baeef59445aa15e1acb",
+      "caller": "reports-db",
+      "nonce": "30e54db2c60b079f95a84392fbdb6b3385f57967adf148973bc53c2fd78d3246",
+      "decision": "redeemed",
+      "sequence": 1,
+      "epoch": 1,
+      "fence": 1,
+      "iat": 1800000005,
+      "exp": 1800000020
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "state-key",
+      "value": "484398e28320f44360668ab3130c3b01d8e7e79a0ce0d8a82209195ce4205f782345b61eda58f36988222ceff038ec821c5cf6c4d777658ef47ed53f1dee9409"
+    }
+  },
+  "responsePacket": {
+    "context": {
+      "v": "http6-guide-01",
+      "kind": "response-context",
+      "op": "op-42",
+      "record": "response-42",
+      "requestRef": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+      "recipientKeyId": "child-key",
+      "resourceKeyId": "resource-key",
+      "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+      "status": 200,
+      "contentType": "application/json",
+      "resultHash": "bb1453c7fec8dfc7c9d2c40136205f7cef6a1d9bb63e1ee85c038f04e730baa8",
+      "outcomeRef": "f5caf17b2e94e2becd53a8aa95349a496de32653049370fd512e32590f9e155c",
+      "iat": 1800000006,
+      "exp": 1800000026
+    },
+    "result": "7b22746f74616c223a34327d",
+    "proof": {
+      "challenge": {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "challenge",
+          "id": "response-challenge",
+          "nonce": "eb19f0e93b786eb585b7e1a8bf5fb43ee83c1c76d11e93885529441ea8346c7c",
+          "purpose": "response-proof",
+          "contextRef": "df1d8677c3b8146e7f580dd5544d95fa15a9b7e522b2136391d514a1a509f951",
+          "actorKeyId": "resource-key",
+          "recipient": "client",
+          "iat": 1800000007,
+          "exp": 1800000037
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "verifier-key",
+          "value": "04aaeea23ed1d4925268ba2acbd2c6f807d4e35172f034118fcc24e08c9662ac8ba7918acc4b33d98d279a3590656daa78ad31b6eaf01bb513cec59dd5cc8805"
+        }
+      },
+      "result": {
+        "payload": {
+          "v": "http6-guide-01",
+          "kind": "proof-result",
+          "proofType": "designated-verifier-attestation",
+          "direction": "response",
+          "contextRef": "df1d8677c3b8146e7f580dd5544d95fa15a9b7e522b2136391d514a1a509f951",
+          "challengeRef": "f226ffcbe74a8181e142cc43ffc07709626bea13fc92a37c02abcaa88481459f",
+          "actorKeyId": "resource-key",
+          "policyRef": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+          "witnessCommitment": "12d4e2fd3374bcc04a98e2fe889245d60cba904749da77587209c7925ceb09cc",
+          "verdict": "accepted",
+          "iat": 1800000007,
+          "exp": 1800000027
+        },
+        "signature": {
+          "alg": "Ed25519",
+          "keyId": "verifier-key",
+          "value": "5a1799b169e09e2b7c9c9b849a29d4a81d4c1f349a35c82976cc0f3507c8a2834ba6c60359907ba88ab055923bc3987b5267d06feb20811bb9b35b20c9705201"
+        }
+      }
+    },
+    "outcome": {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "outcome",
+        "op": "op-42",
+        "permitRef": "ebad1ef7857aeb6950624cae3c423704a80b3736e22b8baeef59445aa15e1acb",
+        "requestRef": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+        "intentRef": "8e7c37598a9a78fc0e36d1bdbcc2f897210b17aeb86ee4d8a2a837303837ca65",
+        "audience": "reports-db",
+        "row": "row-42",
+        "resultHash": "bb1453c7fec8dfc7c9d2c40136205f7cef6a1d9bb63e1ee85c038f04e730baa8",
+        "units": 6,
+        "epoch": 1,
+        "at": 1800000006
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "resource-key",
+        "value": "a30a86bb98d3fdae4afe6df55fa22c38e046b658cf06b277aa3d050e0c468c612e634cde161b325b024efa0d479e8a49a34f30c7be2f35c97d7fc9b77cdf4908"
+      }
+    },
+    "response": {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "response",
+        "contextRef": "df1d8677c3b8146e7f580dd5544d95fa15a9b7e522b2136391d514a1a509f951",
+        "proofRef": "581878932998fa91b310b52c99ef46df9229d664cabf5cbe5c9f55c54d7ac57a"
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "resource-key",
+        "value": "e1c9d9a6937a6c76efc1a9c73c63cf5d81ac1cbff50d493fbb9da45ee6a3159e3a2da8c968ad05791da5257980f22ebb7248c46a4bdbeac1f8ec017882a3ae05"
+      }
+    }
+  },
+  "events": [
+    {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "ledger-event",
+        "ledger": "ledger-1",
+        "sequence": 1,
+        "prev": null,
+        "event": "redeemed",
+        "actor": "reports-db",
+        "op": "op-42",
+        "objectRef": "b4eb449d95b682fb8bb36bacba05128588a51c64f50b779b6236aad1c61b8c0d",
+        "at": 1800000005
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "state-key",
+        "value": "844080c6c73b1dc8be12052711236d1c878c4ed4d667785bf68d82c1ba7ee64652f187f05b686d4ab619db0e895f9a7ca90f88f63ef68a32accff635d9faca08"
+      }
+    },
+    {
+      "payload": {
+        "v": "http6-guide-01",
+        "kind": "ledger-event",
+        "ledger": "ledger-1",
+        "sequence": 2,
+        "prev": "76da8fce150edca028aa5e659bd1deaa4ab6d2c605e37d521e3c077455092aa7",
+        "event": "committed",
+        "actor": "reports-db",
+        "op": "op-42",
+        "objectRef": "f5caf17b2e94e2becd53a8aa95349a496de32653049370fd512e32590f9e155c",
+        "at": 1800000006
+      },
+      "signature": {
+        "alg": "Ed25519",
+        "keyId": "state-key",
+        "value": "00372db4336b6a67761012245a276765815699d9291e67b84001e69408d464b1b6520418eed54db16b89106ddfc788259f0f92ae0d0f7e522eb34992c0ebe00b"
+      }
+    }
+  ],
+  "state": {
+    "epoch": 1,
+    "fence": 1,
+    "rootId": "root-1",
+    "spent": 6,
+    "reserved": 0,
+    "revoked": false
+  },
+  "checkpoint": {
+    "payload": {
+      "v": "http6-guide-01",
+      "kind": "checkpoint",
+      "ledger": "ledger-1",
+      "sequence": 2,
+      "head": "0cd947ef4748cbe9679bcbad0c28b1fda392f6aad7cc1a9b79b458abfbbbcb18",
+      "stateHash": "9dd9eba83136eee85c1373124cc61c3cef3bfcc2bc1695dcb048c577ba2af475",
+      "epoch": 1,
+      "at": 1800000008
+    },
+    "signature": {
+      "alg": "Ed25519",
+      "keyId": "keeper-key",
+      "value": "5dbde5495f484f721534212682e7ec9ef3640b10e8c7f5a460edffabd53080b1743c63e441313f787c1851accc36297e5c6e12816ade417ca3c114655ec3170b"
+    }
+  },
+  "digests": {
+    "rootPolicy": "cb52bb02ed3ba7ffa44cc04e4b70cbd193cd505cbfbdb90dee869c5deed2a5f7",
+    "childPolicy": "ed7805f9ecb59423f6733fe931ca5138a8a924ea6e6696bb9b86002dffcdc77c",
+    "intent": "8e7c37598a9a78fc0e36d1bdbcc2f897210b17aeb86ee4d8a2a837303837ca65",
+    "attempt": "5aa89305e5c2fd1b923cebb007cf0a3a19aab4276bdf4984c92d34bec1477fbb",
+    "requestProof": "fcddf697094564f51c2299bbd15b360167fd8467baddf2a7086ff61140a2999d",
+    "request": "228d2f94e1bafe6e513136319344cb17e6466cd81f0361918cf4efada79c65a8",
+    "requestPacket": "8c0122f5951c95a87b9c17967dcf7274985c5e67780d8e835a80210de56c551f",
+    "permit": "ebad1ef7857aeb6950624cae3c423704a80b3736e22b8baeef59445aa15e1acb",
+    "outcome": "f5caf17b2e94e2becd53a8aa95349a496de32653049370fd512e32590f9e155c",
+    "responseContext": "df1d8677c3b8146e7f580dd5544d95fa15a9b7e522b2136391d514a1a509f951",
+    "responseProof": "581878932998fa91b310b52c99ef46df9229d664cabf5cbe5c9f55c54d7ac57a",
+    "response": "a77e594895ae4f8be8647434f4632fb5f530279e1984eb9bbf1c169742bd6fc6",
+    "responsePacket": "056af13c0b69d96ac0735883f6ede206e0e7512dcf3354bcc8bf47c592dff550",
+    "checkpoint": "536ae66fe60d078fd481659f219d15f1966f6b50420aacf234affc7d264c7ac0"
+  }
+}

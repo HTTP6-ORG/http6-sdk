@@ -1,0 +1,11 @@
+using Http6.Proposed;
+using System.Text;
+using System.Text.Json.Nodes;
+using System.Runtime.Versioning;
+[assembly: UnsupportedOSPlatform("windows")]
+if(args.Length!=4)throw new ArgumentException("state binary operator ledger required");var (state,binary,op,ledger)=(args[0],args[1],args[2],args[3]);using var c=PilotClient.Attach(state,binary);
+JsonObject Proposal(string id,string amount)=>new(){["op"]=id,["audience"]="wallet",["resource"]="merchant-payment",["args"]=new JsonObject{["network"]="regtest",["recipient"]="merchant-a",["satoshis"]=amount},["holdSeconds"]=4};
+async Task Reject(Func<Task> f){try{await f();}catch(InvalidDataException){return;}throw new Exception("expected rejection");}
+var r=await c.InvokeAsync(Proposal("csharp-sdk-ok","100"));if(r.Status!=200)throw new Exception("expected success");var file=Path.Combine(state,(string)r.Body["responseEvidenceFile"]!);await c.VerifyResponseAsync(r,file,op,ledger,"csharp-sdk-ok");await Reject(async()=>await c.VerifyResponseAsync(r,file,new string('0',64),ledger,"csharp-sdk-ok"));await Reject(async()=>await c.VerifyResponseAsync(r,file,op,ledger,"different-op"));var changed=(JsonObject)r.Body.DeepClone();changed["result"]!["amount"]=101;await Reject(async()=>await c.VerifyResponseAsync(r with {Body=changed},file,op,ledger,"csharp-sdk-ok"));
+var f=await c.InvokeAsync(Proposal("csharp-sdk-denied","1100"));if(f.Status!=403)throw new Exception("expected denial");var ff=Path.Combine(state,(string)f.Body["failureEvidenceFile"]!);await c.VerifyFailureAsync(f,ff,op,ledger);await Reject(async()=>await c.VerifyFailureAsync(f with {RequestBytes=Encoding.ASCII.GetBytes("altered")},ff,op,ledger));
+var m=await c.InvokeRawAsync(Encoding.ASCII.GetBytes("{invalid"));if(m.Status!=400)throw new Exception("expected malformed");await c.VerifyFailureAsync(m,Path.Combine(state,(string)m.Body["failureEvidenceFile"]!),op,ledger);var rows=await c.EventsAsync();var v=await c.VerifyLedgerAsync(rows,ledger);if((bool?)v["verified"]!=true||(bool?)v["latestHeadVerified"]!=false)throw new Exception("wrong verification");rows[0]!["event"]="ALTERED";await Reject(async()=>await c.VerifyLedgerAsync(rows,ledger));Console.WriteLine("{\"language\":\"csharp\",\"success\":true,\"denied\":true,\"malformed\":true,\"tamperingRejected\":true,\"ledgerVerified\":true}");

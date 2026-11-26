@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 112" role="img" aria-labelledby="logo-title">
+  <title id="logo-title">HTTP6</title>
+  <g fill="#1a73e8">
+    <path d="M8 10h18v36h36V10h18v92H62V64H26v38H8z"/>
+    <path d="M96 10h84v18H150v74h-18V28H96z"/>
+    <path d="M196 10h84v18H250v74h-18V28h-36z"/>
+    <path fill-rule="evenodd" d="M296 10h48c26 0 42 16 42 40s-16 40-42 40h-30v12h-18V10zm18 18v44h28c14 0 24-10 24-22s-10-22-24-22h-28z"/>
+    <path d="M408 70a32 32 0 1 1 64 0a32 32 0 1 1-64 0M424 70a16 16 0 1 0 32 0a16 16 0 1 0-32 0M412 54C400 36 404 10 444 10h36v18h-32c-16 0-22 10-20 22z"/>
+  </g>
+</svg>

@@ -1,0 +1,56 @@
+{
+  "profile": "http6-wasix-delegation-02",
+  "scope": "synthetic local fixtures, ephemeral local trust pins, not production or independent operator verification",
+  "languages": {
+    "node": {
+      "allowedResponse": "verified",
+      "deniedResponse": "verified",
+      "wrongRequestDigest": "rejected",
+      "signedEvents": "present",
+      "walletEffects": 1
+    },
+    "python": {
+      "allowedResponse": "verified",
+      "deniedResponse": "verified",
+      "wrongRequestDigest": "rejected",
+      "signedEvents": "present",
+      "walletEffects": 1
+    },
+    "rust": {
+      "allowedResponse": "verified",
+      "deniedResponse": "verified",
+      "wrongRequestDigest": "rejected",
+      "signedEvents": "present",
+      "walletEffects": 1
+    },
+    "go": {
+      "allowedResponse": "verified",
+      "deniedResponse": "verified",
+      "wrongRequestDigest": "rejected",
+      "signedEvents": "present",
+      "walletEffects": 1
+    },
+    "csharp": {
+      "allowedResponse": "verified",
+      "deniedResponse": "verified",
+      "wrongRequestDigest": "rejected",
+      "signedEvents": "present",
+      "walletEffects": 1
+    }
+  },
+  "pythonWasix": {
+    "runtime": "python/python@=3.13.18 on Wasmer",
+    "result": "passed",
+    "requestBytesBoundToRustWasixFailureProof": true,
+    "identityOrEffectVerified": false
+  },
+  "pilotBinarySha256": "a0d26542683a4f988de56f1fb8d75f724a008a0143ac9a8ee7eb083fcbd63043",
+  "date": "2026-11-25",
+  "platform": "macOS ARM64 local synthetic fixture",
+  "limitations": [
+    "WASIX Python guest synthesizes bytes but does not itself sign or invoke the native circuit",
+    "trust pins are generated in the same local fixture",
+    "not independent cross-domain evidence or evidence of a production guarantee",
+    "GitHub documentation workflow does not run this test without separately provisioned runtimes"
+  ]
+}

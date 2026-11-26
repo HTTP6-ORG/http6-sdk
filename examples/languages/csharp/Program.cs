@@ -1,0 +1,10 @@
+using System.Net.Sockets;
+using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+if (args.Length!=3 || !Regex.IsMatch(args[1],"^[a-z0-9-]{1,48}$") || (args[2]!="allowed" && args[2]!="denied")) throw new ArgumentException("Usage: client SOCKET OP allowed|denied");
+var amount=args[2]=="allowed"?"100":"1100";
+var payload=$"{{\"args\":{{\"network\":\"regtest\",\"recipient\":\"merchant-a\",\"satoshis\":\"{amount}\"}},\"audience\":\"wallet\",\"holdSeconds\":4,\"op\":\"{args[1]}\",\"resource\":\"merchant-payment\"}}";
+using var socket=new Socket(AddressFamily.Unix,SocketType.Stream,ProtocolType.Unspecified);socket.ReceiveTimeout=15000;socket.Connect(new UnixDomainSocketEndPoint(args[0]));
+using var stream=new NetworkStream(socket);var bytes=Encoding.UTF8.GetBytes(payload);var headers=Encoding.ASCII.GetBytes($"POST /http6/v0/propose HTTP/1.0\r\nHost: agent.local\r\nContent-Type: application/json\r\nContent-Length: {bytes.Length}\r\nConnection: close\r\n\r\n");
+stream.Write(headers);stream.Write(bytes);using var reader=new StreamReader(stream,Encoding.UTF8);var raw=reader.ReadToEnd();var split=raw.IndexOf("\r\n\r\n",StringComparison.Ordinal);if(split<0)throw new Exception("Invalid response");var status=int.Parse(raw[..split].Split(' ')[1]);using var body=JsonDocument.Parse(raw[(split+4)..]);Console.WriteLine(JsonSerializer.Serialize(new {status,body=body.RootElement}));
