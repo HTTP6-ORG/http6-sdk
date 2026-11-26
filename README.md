@@ -1,47 +1,129 @@
-# HTTP6 proposed SDK and developer guide
+# HTTP6: proposed protocol, SDK, and demonstrations
 
-This repository contains an experimental SDK adapter, a navigable Docusaurus guide, the full draft source, a proposed schema and synthetic vectors. The developer site is designed for `https://www.http6.org/developers/sdk/` and is built from this repository. Questions and feedback are welcome through this repository's issues.
+HTTP6 explores how a person or authorized service can delegate bounded work to an agent, require proof for each protected request, enforce the grant at the resource that performs the action, and inspect evidence of the result.
 
-## Current capabilities
+This repository is the public entry point for the proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It contains both design material and experimental implementations. Read the status notes before treating a proposal or local test as a deployed capability.
 
-- A Node.js adapter starts or attaches to the original `http6-wasix-delegation-00` pilot or profiles `http6-wasix-delegation-01` and `http6-wasix-delegation-02`. All admit a synthetic autonomous root and mint fixed fixture children. Profiles 01 and 02 add native proofs for committed successful responses. Profile 02 adds ledger-recorded broker observations for denied, held, malformed and uncertain replies.
-- Basic Python, Rust, Go and C# SDKs in `packages/` submit pilot requests and verify success proofs, failure proofs and signed ledger chains through a separately supplied verifier. See `docs/multilanguage-sdks.md`.
-- A synthetic adversarial test guide, repeatable runner, request examples, and Go integration tests exercise bearer-token replay, TLS trust, readable test credentials, proxy request boundaries, response verification, and ledger limits. See `docs/adversarial-tests.md` and `examples/adversarial/README.md`.
-- The direct `WasixCircuits` adapter also connects to the existing mint, child and verifier guests. It can prepare a root, mint an attenuated child and produce and verify a native request proof when the integrator supplies configured trust and verified ledger-registration callbacks. Its direct-circuit test uses in-memory registration callbacks and does not establish ledger enrollment.
-- The adapter reads the local ledger, verifies the signed chain under an independently provided key and can invoke the pilot's offline synthetic wallet verifier. A verified chain is not evidence that the newest head was returned or that an external effect occurred.
-- A separate Python adapter runs the existing Rosario-Wang review model's native request and response proofs, local mint and ledger. This is a different implementation and proof format from the WASIX pilot.
-- A local synthetic bridge binds a pilot wallet proposal and its actual verified receipt into the review model request and response proofs. It is a trusted local composition of two distinct implementations and ledgers, not a unified wire protocol or production cross-domain evidence.
-- Human enrollment, arbitrary child minting through the pilot agent API, full production recovery and unrestricted host mediation remain unimplemented. The SDK reports profile capabilities explicitly.
+> **Status:** HTTP6 is a project designation, not an assigned HTTP version or a production protocol. The individual Internet-Drafts and NIST discussion material are not institutional endorsements. This repository is proposal work and experimental local software, not a production security product.
 
-The [read-only API navigator](https://www.http6.org/developers/sdk/api-reference/) defines the proposed guide contract. The five-language examples and Python/Rust WASIX test are documented in `docs/multilanguage-demo.md`.
+## Start here
 
-This is a proposal and local experimental software, not a standard or production security product. Do not use the fixtures for real money, sensitive data or production authorization. See `docs/sdk-api.md` for usage and `source/developer-guide.md` for the complete draft.
+- [HTTP6.org](https://www.http6.org/): project overview, architecture, research, and participation.
+- [HTTP6 developers](https://www.http6.org/developers/): API proposal, SDK guide, source links, and demonstrations.
+- [Read-only API navigator](https://www.http6.org/developers/sdk/api-reference/): browse the proposed API operations.
+- [Protocol roadmap](https://www.http6.org/roadmap/): staged path from signed requests over HTTPS to a possible native HTTP6 channel.
+- [Full developer guide](https://www.http6.org/developers/sdk/): schemas, pseudocode, examples, and current implementation boundaries.
+- [Adversarial demonstrations](https://www.http6.org/developers/adversarial-tests/): separate cards for controlled JWT, TLS, proxy, proof, and ledger cases.
+- [GitHub Issues](https://github.com/HTTP6-ORG/http6-sdk/issues): report a problem, share a reproduction, or propose a change.
 
-## Develop and test
+## What HTTP6 proposes
 
-Requires Node 22. The pilot integration test requires a separately built local pilot and Wasmer. The public `pilot/` directory includes host integration source. Circuit and WASIX guest source are not distributed. Compiled demonstration guests, their notices, and bounded validation results are in `circuits/demo-wasix-02/`. The review adapter requires the separately provisioned public validation kit.
+An ordinary bearer credential grants authority to whoever possesses it. HTTP6 explores a different application model: carry a bounded grant with a particular operation, bind the request proof to its recipient and contents, and have the receiving resource check the authority and one-use state before allowing the protected effect.
+
+A proposed exchange has these parts:
+
+1. **Approval and grant.** A person or configured origin defines the task, audience, resource, allowed actions, limits, and lifetime. An issuer can create narrower child grants that preserve those constraints.
+2. **Request preparation.** An SDK constructs an exact request context, including the operation, target, arguments or payload digest, grant, and unique operation identifier.
+3. **Proof and verification.** The configured proof provider produces evidence for the request. The resource checks the signer and grant chain, current policy, expiration or revocation, request binding, budget, and replay state.
+4. **Enforcement and record.** The resource adapter checks the policy at the actual effect or disclosure point and records the outcome in ordered ledger events. A valid signature by itself does not authorize an effect.
+5. **Response and inspection.** Depending on the profile, a client verifies a native response proof or a signed observation and inspects the available ledger chain. The current pilot cannot establish that a returned ledger prefix is the newest head without an independently trusted checkpoint.
+
+The intended result is authority that follows the task through delegation, with resource-side enforcement and evidence that can be checked independently. The design does not automatically mediate every filesystem, network, database, queue, or privileged path. A deployment must connect and verify each path that can perform an action or disclose data.
+
+## Architecture at a glance
+
+| Part | Responsibility | Current status in this repository |
+| --- | --- | --- |
+| Protocol profiles and schemas | Define signed objects, request and response context, digests, status transitions, errors, and ledger events | Multiple profiles and proposals are kept separate. A proposed API guide is not wire compatible with every existing profile. |
+| Origin and SDKs | Prepare requests, carry grants, call proof and resource adapters, verify responses, and inspect evidence | Experimental Node.js, Python, Rust, Go, and C# adapters are present. Their capabilities and setup differ. |
+| Pilot host and resource adapters | Receive structured requests, enforce local policy, operate the demo resource, and record events | Public host integration source supports synthetic local profiles. Human enrollment, unrestricted mediation, and production recovery are not complete. |
+| Proof provider | Produce or verify request and response evidence under a selected trust model | Implementations can use their own proof provider or a separately licensed ENI6MA / Pass+ integration. The public WASIX demonstration guests are compiled files. Circuit and guest source is not distributed. A verifier attestation must not be described as a public zero-knowledge proof unless that property is separately established. |
+| Ledger and inspector | Record signed event history and let authorized clients verify signatures and chain continuity | The local pilot verifies returned rows. It does not prove that the server returned the latest ledger head or that an external effect occurred. |
+
+## What is implemented and what remains proposed
+
+Profile names identify different contracts. Do not assume that a capability or test result for one profile applies to another.
+
+| Profile or material | What it contains | Status and boundary |
+| --- | --- | --- |
+| `http6-w1-00` | A bounded signed-request profile that runs over HTTPS, with reference cases for authorization, resource enforcement, shared budgets, replay, and recovery | Reference implementations and test material are available. The published trial used one computer and does not establish independent-operator interoperability. |
+| `http6-wasix-delegation-00` | The original synthetic WASIX pilot with request proofs and local resource adapters | Experimental local integration. It has no native response proofs. |
+| `http6-wasix-delegation-01` | The pilot with native proofs for committed successful responses | Experimental. The proof and evidence depend on this profile's local trust configuration. |
+| `http6-wasix-delegation-02` | Profile 01 plus broker observations for denied, held, malformed, and uncertain replies | Experimental. A signed failure observation describes what the pilot recorded; it does not independently prove an external effect or caller identity. |
+| `http6-guide-01` | A detailed API, schema, and end-to-end design example in the guide | Proposal only. It is not wire compatible with the pilots and is not a published standard. |
+| Rosario-Wang review model | A separate request and response proof model, with its own SDK and ledger | A separate implementation and proof format. It is not the WASIX pilot or a unified production protocol. |
+
+The local demonstrations use generated synthetic credentials, local state, and bounded test resources. A passing test means the expected result occurred in that fixture. It does not establish production security, independent administration, a universal cryptographic guarantee, or resistance to every attack.
+
+## Roadmap from HTTPS and JWT
+
+HTTP6 is a project designation, not an assigned HTTP version. The long-term proposal is to move from signed, proof-bearing requests over HTTPS toward a native encrypted HTTP6 channel. On fully migrated routes, that channel could eventually replace HTTPS for transport and reusable bearer JWTs for authorization. This is a conditional roadmap, not a capability of the current pilot.
+
+| Stage | Goal | Status and exit gate |
+| --- | --- | --- |
+| 1. W1 signed requests over HTTPS | Bind authorization to each operation while keeping TLS for transport confidentiality and service authentication | Reference implementations are available. Prove route-level resource enforcement and replay behavior. |
+| 2. Independent-operator interoperability | Exchange requests in both directions between separately administered domains | Next trial. Each operator must keep its own keys, policy, and ledger, and independently reconcile the same resource outcomes. A route may retire bearer JWT authorization only after every effect path enforces the request rule. |
+| 3. W2 managed workspace | Bind the displayed approval to the running worker, its delegated tasks, and its resource access | Design stage. Demonstrate that navigation, downloads, background work, and worker replacement preserve or renew the approved authority. HTTPS can continue to carry the traffic. |
+| 4. N1 native encrypted channel | Define an HTTP6-aware client and service that establish an authenticated encrypted channel with integrity, key rotation, downgrade protection, replay handling, and recovery | Research and controlled-pilot stage. Twelve technical decisions remain open. Independent implementations and a reviewed transport specification are required before migration. |
+| 5. Application-wide migration | Move clients, APIs, assets, workers, queues, and recovery paths onto the validated native channel | Long-term goal. Only after every path and recovery flow is qualified could an operator retire HTTPS/TLS and bearer JWTs on those migrated routes. Partners that have not migrated would need a separately secured gateway. |
+
+There are no promised completion dates. See the [public roadmap](https://www.http6.org/roadmap/) and [technical milestone gates](https://www.http6.org/specifications/status-and-precedence/#milestones) for the current sequence. Replacing HTTPS is more than replacing a token format: TLS currently supplies channel encryption and service authentication, and those jobs need a validated replacement before a route can leave HTTPS.
+
+## Repository map
+
+| Path | Contents |
+| --- | --- |
+| `source/` | Canonical long-form developer guide and original API proposal. |
+| `docs/generated/` | Navigable guide and proposal pages generated from `source/`. Update the canonical source, not generated pages. |
+| `docs/` | SDK integration, profile status, response and failure proof, adversarial test, and multi-language guides. |
+| `packages/` | Node.js, Python, Rust, Go, and C# SDK adapters and proof verification code. |
+| `pilot/` | Public host integration and local WASIX pilot source. This does not include circuit or guest source. |
+| `examples/` | Language, cross-runtime, and adversarial demonstrations. |
+| `circuits/demo-wasix-02/` | Compiled demonstration guests, notices, checksums, validation records, and dependency notices. Circuit source is not included. |
+| `static/artifacts/` | Published schemas and synthetic vectors for the developer guide. |
+
+The Docusaurus developer guide is generated from the canonical Markdown in `source/` and published from this repository. GitHub Pages updates when `main` changes, and the HTTP6.org developer SDK route is configured to serve the guide. Edit the canonical source, not generated pages.
+
+## Build and explore locally
+
+For the documentation site and package unit tests, use Node.js 22:
 
 ```sh
 npm ci
 npm test
-HTTP6_TEST_PROFILE=http6-wasix-delegation-02 \
-  HTTP6_PILOT_BINARY=/path/to/pilot/bin/http6-pilot \
-  HTTP6_WASIX_BIN=/path/to/pilot/bin \
-  HTTP6_REVIEW_KIT=/path/to/HTTP6_RosarioWang_Validation_Kit npm test
-python3 reference/review_channel.py /path/to/HTTP6_RosarioWang_Validation_Kit
 npm run build
 ```
 
-The public CI runs the framework build and SDK tests available without the separately provisioned circuit crates. Tests requiring `HTTP6_PILOT_BINARY` and `HTTP6_WASIX_BIN` are skipped when those inputs are absent. The 98-check pilot qualification is a separately run local synthetic test.
+To assemble the local synthetic pilot and run the adversarial examples, you also need Go, Python 3, CGO, SQLite headers, and Wasmer 7.4.0. Use new, private output directories. The runner retains detailed logs, and some verbose synthetic tests print generated test-only keys.
 
-A fixture start requires a new state directory. It never deletes an existing state directory. The SDK's `close` shuts down only the pilot process it started. Test code uses a new temporary directory and removes only that test directory after shutdown.
+```sh
+./pilot/assemble-demo.sh /private/path/to/new-demo-bin
+python3 scripts/run-adversarial.py \
+  --pilot-bin /private/path/to/new-demo-bin \
+  --out /private/path/to/new-private-logs \
+  --iterations 3
+```
 
-The website build turns the two Markdown documents in `source/` into individually navigable pages and publishes static schema and synthetic vectors from `static/artifacts/`. GitHub Pages is updated on changes to `main`; HTTP6.org's developers route is configured to serve those built pages. Update the source here rather than editing a rendered page on the website.
+The [adversarial guide](docs/adversarial-tests.md) explains the expected outcomes and limits. The [multi-language demo](docs/multilanguage-demo.md) documents the Node.js, Python, Rust, Go, and C# examples and cross-runtime run. End-to-end SDK runs that require an assembled pilot use a new output directory and remain synthetic.
 
-## Contribution and licensing
+## Requirements before production
 
-Report corrections, reproduction results and API proposals in GitHub issues. A license for this new repository has not yet been selected. Publication and the invitation to discuss do not grant an open-source license or resolve rights to separately distributed HTTP6, ENI6MA, third-party or validation-kit components. Do not submit material you cannot share. No private keys, device state, customer records or private ledger exports belong in issues or commits.
+This repository is not a production deployment. Work still required includes:
 
-ENI6MA circuits are patent pending and protected by copyright. Commercial deployments require a license available only through ENI6MA and Rosario Cybernetics. For production or extended implementations and inquiries about proposed information-theoretic properties, contact President Frank Rosario through [Rosario Cybernetics](https://www.rosariocyber.com/contact) to discuss license options. The experimental tests are not proof of a production guarantee.
+- Freeze and independently review profile contracts, canonical bytes, schemas, algorithms, key lifecycle, and proof statements.
+- Complete human enrollment, trusted approval display, key custody, runtime identity, and resource-specific policy distribution.
+- Test every direct, alternate, background, and privileged route at the actual effect and disclosure boundary.
+- Implement transactional shared state, revocation propagation, independent ledger checkpoints, rollback resistance, and crash-safe recovery.
+- Test request and response proofs across independent implementations and separately administered operators.
+- Specify and independently review the native encrypted channel before claiming that it can replace TLS.
+- Publish deployment-specific test evidence, assumptions, supported actions, versions, recovery behavior, and known limits.
 
-Nonprofit organizations and private entities may [contact Rosario Cybernetics](https://www.rosariocyber.com/contact) to request permission. Commercial use is strictly prohibited without a paid commercial license. See the [compiled circuit notice](circuits/NOTICE.md).
+Signatures and a hash chain do not by themselves prove current authority, complete mediation, the newest ledger state, or an external resource effect. The [production work checklist](docs/generated/guide/19-decisions-and-work-required-before-production.md) records additional open decisions.
+
+## Contributing and use
+
+Open [GitHub Issues](https://github.com/HTTP6-ORG/http6-sdk/issues) for corrections, proposals, and synthetic reproduction results. Keep private keys, customer data, device state, and private ledger exports out of issues and commits. Do not submit material you cannot share.
+
+This repository does not currently select a top-level license. Public visibility does not grant rights to separately distributed circuit, validation-kit, or third-party material. Review the [compiled circuit notice](circuits/NOTICE.md) and the notice shipped with each demo before use. Circuit source is not published.
+
+ENI6MA circuits are patent pending and protected by copyright. Commercial deployments of the separately licensed circuit integration require a paid license through ENI6MA or Rosario Cybernetics. Nonprofit organizations and private entities may [contact Rosario Cybernetics](https://www.rosariocyber.com/contact) to request permission. For production or extended implementation inquiries, contact President Frank Rosario through [Rosario Cybernetics](https://www.rosariocyber.com/contact). The experimental examples do not establish a production security guarantee.
