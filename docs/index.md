@@ -5,13 +5,13 @@ sidebar_position: 1
 
 # Proposed HTTP6 API and SDK
 
-HTTP6 is one protocol and SDK track within ENI6MA’s wider program for human-accessible cybersecurity. That program begins with human identity and delegated authority, then extends toward information-theoretic protection for proofs, communications, institutional access, and other digital operations. This guide covers the HTTP6 API contribution: bounded work, resource-side checks, response evidence, and ledger inspection. The [ENI6MA mission](./eni6ma-moonshot.md) explains the larger thesis and the role of mathematical review, developer adoption, and cybersecurity evaluation.
+HTTP6 is one protocol and SDK track within a global mission for identity privacy and cybersecurity for everyone. The destination is information-theoretic security based on the Rosario-Wang formulation, geometric ciphers, and commitment, extended across human identity, communications, institutional access, and other digital operations. ENI6MA is the commercialization and licensing arm for the technology. This guide covers the HTTP6 API contribution: bounded work, resource-side checks, response evidence, and ledger inspection. The [global security moonshot](./eni6ma-moonshot.md) explains the human problem, the future destination, and the review path.
 
 The WASIX 02 pilot records native proofs for committed successful responses and broker observations for denied, held, malformed, and uncertain responses. The separate Rosario-Wang review model uses its own implementation and proof format.
 
 - [Start with the developer guide](./generated/guide/00-overview.md)
 - [Read the HTTP6 theory](./http6-theory.md)
-- [Read the ENI6MA Moonshot mission](./eni6ma-moonshot.md)
+- [Read the global security moonshot](./eni6ma-moonshot.md)
 - [Use the proposed SDK](./sdk-api.md)
 - [Open the read-only API navigator](https://www.http6.org/developers/sdk/api-reference/)
 - [Run five-language and cross-runtime examples](./multilanguage-demo.md)

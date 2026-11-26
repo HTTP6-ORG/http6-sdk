@@ -4,13 +4,17 @@ HTTP6 explores how a person or authorized service can delegate bounded work to a
 
 This repository is the public entry point for the HTTP6 proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It presents the platform architecture, current profile implementations, and planned milestones.
 
-HTTP6 is one network-protocol strand in ENI6MA’s moonshot: replace cryptographic primitives whose security depends on computational assumptions with the ENI6MA and Rosario-Wang information-theoretic proof architecture. If a primitive depends on computational hardness, it is within the program’s replacement scope. The destination spans identity, bounded authority, private proofs, secure communications, institutional access, and other digital systems worldwide. This repository covers HTTP6’s early API and SDK application. Its current W1 profile still uses Ed25519 signatures over HTTPS, so it retains computational assumptions while testing request-bound authority in existing web infrastructure. Read the [ENI6MA mission](docs/eni6ma-moonshot.md) for the full destination, technical thesis, and review path.
+The global moonshot is identity privacy and cybersecurity for every person, with systems designed for a world of 10 billion people. Digital insecurity already produces financial loss, impersonation, exposed data, and disruption. The FBI’s Internet Crime Complaint Center recorded 1,008,597 complaints and $20.877 billion in reported losses during 2025 across varied cyber-enabled crimes. These figures do not isolate cryptographic failures, but they make the human stakes concrete. See the [FBI 2025 IC3 report](https://www.ic3.gov/AnnualReport/Reports/2025_IC3Report.pdf).
+
+The destination is information-theoretic security as the foundation of future cryptography and cybersecurity. The Rosario-Wang formulation brings together proof, geometric ciphers, and commitment. Its thesis is to replace primitives whose security depends on computational hardness and to provide privacy and cybersecurity at global scale. The ambition is comparable to the transformation that brought public-key cryptography and PKI into Internet infrastructure, with information-theoretic security serving as the future foundation for protecting human identity, communications, institutions, and digital action.
+
+ENI6MA is the commercialization and licensing arm for Rosario-Wang technology. The company name is an homage to the British nickname “Enigma” for a historical cipher machine; that historical reference is separate from Rosario-Wang. HTTP6 is one early network application of Rosario-Wang, focused on human authority over AI agents and web operations. This repository covers the API and SDK contribution. Its current W1 profile uses Ed25519 signatures over HTTPS and retains computational assumptions while testing request-bound authority in existing web infrastructure. Read the [global security moonshot](docs/eni6ma-moonshot.md) for the human problem, technical destination, and review path.
 
 ## Start here
 
 - [HTTP6.org](https://www.http6.org/): project overview, architecture, research, and participation.
-- [The ENI6MA Moonshot](https://www.http6.org/moonshot/): the mission to replace computational-assumption-based cryptographic foundations with information-theoretic proofs across digital systems.
-- [Moonshot mission on GitHub](docs/eni6ma-moonshot.md): a repository copy for readers who begin here.
+- [Global security moonshot](https://www.http6.org/moonshot/): the mission to provide identity privacy and cybersecurity for everyone through information-theoretic security.
+- [Global moonshot on GitHub](docs/eni6ma-moonshot.md): a repository copy for readers who begin here.
 - [HTTP6 theory](docs/http6-theory.md): the design rationale, proof model, agent authority, and long-term HTTPS/TLS and JWT migration goal.
 - [HTTP6 developers](https://www.http6.org/developers/): API proposal, SDK guide, source links, and demonstrations.
 - [Read-only API navigator](https://www.http6.org/developers/sdk/api-reference/): browse the proposed API operations.
