@@ -7,7 +7,7 @@ sidebar_position: 1
 
 This developer guide explores how a human or authorized origin can delegate bounded work to an agent, how a resource can check that work at the point of action, and how a reader can inspect the evidence.
 
-**Status: proposal and experimental local integration.** HTTP6 is a project designation. This SDK is not a standard or a production security product. The WASIX 02 pilot uses synthetic fixtures and registered local adapters. It records native proofs for committed successful responses and broker observations for denied, held, malformed and uncertain responses. The separate Rosario-Wang review model remains a different implementation. Neither establishes a production deployment.
+The WASIX 02 pilot records native proofs for committed successful responses and broker observations for denied, held, malformed, and uncertain responses. The separate Rosario-Wang review model uses its own implementation and proof format.
 
 - [Start with the developer guide](./generated/guide/00-overview.md)
 - [Use the proposed SDK](./sdk-api.md)

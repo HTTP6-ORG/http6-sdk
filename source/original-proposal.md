@@ -1,6 +1,6 @@
 # HTTP6 API and SDK guide proposal
 
-**Status:** Working proposal for author and implementer review, November 25, 2026. This document defines a proposed developer experience and identifies contracts that must be specified and tested before release. Pseudocode and proposed endpoints are illustrative, not existing APIs. HTTP6 is a project designation, not an assigned HTTP version, URI scheme, port, or replacement for TLS. The individual IETF drafts are not an IETF endorsement.
+**Status:** Working proposal for author and implementer review, November 25, 2026. This document defines a proposed developer experience and identifies contracts to specify and test before release. Pseudocode and proposed endpoints are illustrative.
 
 ## 1. Objective and boundaries
 
@@ -401,11 +401,11 @@ For W1, the signed response codes are `COMMITTED`, `RECONCILED`, `CLOSED`, `RESE
 - Which policy and result evidence is public, tenant-restricted or private, and what retention and deletion obligations apply?
 - What response challenge exchange, proof transport, replay semantics, failure codes and version negotiation will the new message-proof profile adopt?
 
-Until these choices are specified and verified, this document is a design proposal, not a complete implementable protocol specification, production SDK or deployment claim.
+The remaining sections identify profile choices, API contracts, and the verification agenda for this design.
 
 ## 11. Source map
 
-- [HTTP6 packet README](README.md): project designation, document roles and the existing packet's status.
+- [HTTP6 packet README](README.md): platform overview, document roles and milestones.
 - [Authority continuity draft](01-ietf/draft-rosario-http6-authority-continuity-00.md): origins, delegation, resource commitment, revocation and recovery.
 - [W1 profile](01-ietf/draft-rosario-http6-w1-profile-00.md): W1 schemas, byte rules, signatures, request/response and conformance cases.
 - [WASIX delegation developer specification](HTTP6-WASIX-Delegation-Developer-Spec.md): proposed developer API, policy, native proof, callback and request bindings.

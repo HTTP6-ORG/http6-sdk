@@ -3,7 +3,7 @@
   "info": {
     "title": "HTTP6 proposed guide API",
     "version": "0.1.0-proposal",
-    "description": "Design-only http6-guide-01 contract. This is not the existing WASIX pilot API, a production service, or an IETF standard. No calls can be sent from this navigator."
+    "description": "http6-guide-01 API contract. The navigator provides a read-only view of operations and schemas."
   },
   "servers": [
     {

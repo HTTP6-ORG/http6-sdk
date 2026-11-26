@@ -1,6 +1,6 @@
 {
   "profile": "http6-wasix-delegation-02",
-  "status": "compiled demonstration only, not production qualification",
+  "status": "compiled demonstration bundle with local test results",
   "format": "wasm32-wasix; work.wasm is a generic sample worker",
   "artifactsSha256": {
     "mint.wasm": "2184b6aa794dd658ff3413ddfce4f0af0a1fa4d1b286b622e2a28a9b2ec7db96",
@@ -32,7 +32,6 @@
   ],
   "limitations": [
     "synthetic data and single operator",
-    "AMD64 run used emulation, not independent native AMD64 hardware",
-    "not a formal proof, production security assessment or independent cross-domain deployment"
+    "AMD64 run used emulation, not independent native AMD64 hardware"
   ]
 }

@@ -14,11 +14,11 @@ sidebar_position: 5
 | Go | `examples/languages/go/client.go` | Go and Unix sockets |
 | C# | `examples/languages/csharp/Program.cs` | .NET 8 and Unix sockets |
 
-Each client accepts `SOCKET OP allowed|denied` and prints a JSON object with the actual status and response. The fixture spends synthetic regtest units; it does not connect to a payment network. The clients do not, by themselves, verify a proof. The test runner compares the returned objects to private evidence and invokes the separately compiled native verifier with the fixture's operator and ledger keys. A production relying party must provision its own trust pins independently.
+Each client accepts `SOCKET OP allowed|denied` and prints a JSON object with the actual status and response. The fixture spends synthetic regtest units; it does not connect to a payment network. The clients do not, by themselves, verify a proof. The test runner compares the returned objects to private evidence and invokes the separately compiled native verifier with the fixture's operator and ledger keys. Each relying party provisions its trust pins independently.
 
 ## Demo circuit controls
 
-The fixture uses separately provisioned Rust WASIX circuit and verifier guests, private local sockets, bounded request bodies, a fresh ledger challenge, one-use proof commitments, registered policy checks and signed ledger evidence. The tests verify response evidence and reject a changed request digest. These controls harden this specific demonstration path; they do not make the sample clients, single-host trust model, key custody or resource mediation production ready.
+The fixture uses separately provisioned Rust WASIX circuit and verifier guests, private local sockets, bounded request bodies, a fresh ledger challenge, one-use proof commitments, registered policy checks and signed ledger evidence. The tests verify response evidence and reject a changed request digest. These controls exercise the request and response paths, proof verification, and registered resource adapters in this fixture.
 
 ## Reproduce the full test
 
@@ -40,9 +40,9 @@ Choose a parent directory that already exists. The runner refuses an existing ou
 
 For each language the runner sends an allowed 100-unit operation and a separate denied 1,100-unit operation. It compares the response to the evidence file, verifies the successful and failure proofs through the pilot's native verifier, checks that a modified request digest fails, inspects signed response event presence, and checks the wallet has one synthetic effect. The failure proof is an authenticated broker observation, not proof that a policy decision was correct or an effect did not occur.
 
-The runner also starts Python **inside** the Wasmer WASIX runtime. The Python guest canonicalizes a synthetic denied request and computes its SHA-256 digest. The host forwards those exact bytes to the local agent, where the existing Rust WASIX circuit and designated verifier create a native proof and the Go ledger records it. The test checks that the proof context binds the digest produced by the Python guest. The Python guest does not create an ENI6MA proof or directly invoke the circuit; the host and pilot perform those steps. This is a local composition, not independent cross-domain verification.
+The runner also starts Python **inside** the Wasmer WASIX runtime. The Python guest canonicalizes a synthetic denied request and computes its SHA-256 digest. The host forwards those exact bytes to the local agent, where the existing Rust WASIX circuit and designated verifier create a native proof and the Go ledger records it. The test checks that the proof context binds the digest produced by the Python guest. The Python guest does not create an ENI6MA proof or directly invoke the circuit; the host and pilot perform those steps. This local composition binds the Python guest's request digest to the Rust WASIX failure proof.
 
-The [published synthetic test report](https://www.http6.org/developers/sdk/artifacts/multilanguage-02-qualification.json) gives the measured results and limits. The [failure-proof guide](./failure-proofs.md) covers held, malformed and uncertain responses and replay checks. The existing pilot audit covers the registered endpoint, process, database and wallet adapters. GitHub's default documentation workflow cannot run the WASIX tests without the separately provisioned circuit crates and toolchain.
+The [published synthetic test report](https://www.http6.org/developers/sdk/artifacts/multilanguage-02-qualification.json) gives the measured results. The [failure-proof guide](./failure-proofs.md) covers held, malformed and uncertain responses and replay checks. The existing pilot audit covers the registered endpoint, process, database and wallet adapters. GitHub's default documentation workflow cannot run the WASIX tests without the separately provisioned circuit crates and toolchain.
 
 ## Inspect the proposal
 
@@ -52,6 +52,6 @@ Use the [SDK guide](./sdk-api.md) for minting and request, success-response and 
 
 ENI6MA circuits are patent pending and protected by copyright. Commercial deployments require a license available only through ENI6MA and Rosario Cybernetics. For production or extended implementations, including inquiries about the proposed information-theoretic properties of HTTP6 with embedded ENI6MA circuits, contact President Frank Rosario through [Rosario Cybernetics](https://www.rosariocyber.com/contact) to discuss licensing options.
 
-The experimental demos and published information do not establish that a deployed system meets an information-theoretic guarantee. Such claims depend on a precise model, assumptions, implementation and independent assessment. No license to the separately distributed circuits is granted by this guide or its examples.
+No license to the separately distributed circuits is granted by this guide or its examples.
 
 Nonprofit organizations and private entities may contact Rosario Cybernetics directly to request permission. Commercial use is strictly prohibited without a paid commercial license. The [circuit notice](https://github.com/HTTP6-ORG/http6-sdk/blob/main/circuits/NOTICE.md) describes enforcement and applicable legal limits.

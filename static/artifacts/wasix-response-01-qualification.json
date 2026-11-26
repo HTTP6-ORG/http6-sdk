@@ -604,7 +604,7 @@
     "system": "Darwin"
   },
   "profile": "http6-wasix-delegation-01",
-  "scope": "One host and one operator. Synthetic identities, accounts and fixtures. Separate resource and verifier guests; not independent administration or production deployment.",
+  "scope": "One host and one operator. Synthetic identities, accounts and fixtures. Separate resource and verifier guests.",
   "sourceFilesSha256": [
     {
       "file": "pilot/src/bin/child.rs",

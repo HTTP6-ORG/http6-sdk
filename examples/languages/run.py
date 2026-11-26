@@ -40,7 +40,7 @@ def main():
     shutil.copy(lang/'csharp/Program.cs',cs);shutil.copy(lang/'csharp/Client.csproj',cs)
     run(['rustc',lang/'rust/client.rs','-o',rust],env=env);run(['go','build','-o',go,lang/'go/client.go'],env=env);run([a.dotnet,'build',cs/'Client.csproj','-c','Release','-o',build/'csharp','--nologo'],env=env)
     commands={'node':['node',lang/'node/client.mjs'],'python':[sys.executable,lang/'python/client.py'],'rust':[rust],'go':[go],'csharp':[a.dotnet,build/'csharp/Client.dll']}
-    report={'profile':'http6-wasix-delegation-02','scope':'synthetic local fixtures, ephemeral local trust pins, not production or independent operator verification','languages':{},'pythonWasix':{}}
+    report={'profile':'http6-wasix-delegation-02','scope':'synthetic local fixtures and ephemeral local trust pins','languages':{},'pythonWasix':{}}
     for language,cmd in commands.items():
         state=out/language;proc=subprocess.Popen([str(binary),'agent','--state',str(state)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,text=True)
         try:

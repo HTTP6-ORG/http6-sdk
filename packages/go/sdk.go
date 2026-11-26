@@ -1,4 +1,4 @@
-// Package http6 is an experimental local WASIX 02 pilot adapter.
+// Package http6 is a local WASIX 02 pilot adapter.
 package http6
 
 import (

@@ -1,4 +1,4 @@
-"""Experimental local HTTP6 WASIX 02 adapter, not a production security product."""
+"""Python SDK adapter for the HTTP6 WASIX 02 pilot."""
 import hashlib
 import http.client
 import json

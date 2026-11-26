@@ -26,7 +26,7 @@ async function split(source, dir, label) {
   const folder=new URL(dir+'/',generated); await mkdir(folder,{recursive:true});
   await writeFile(new URL('_category_.json',folder),JSON.stringify({label,position:label==='Developer guide'?2:3,link:{type:'generated-index'}},null,2)+'\n');
   const opening=rewrite(chunks[0].replace(/^# .+$/m, '# Overview'));
-  const openingNotice=label==='Original proposal' ? '> **Historical proposal:** This preserved draft predates the WASIX 01 response-proof pilot. See the SDK integration page for the current implementation. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n' : '> **Proposal:** This page describes experimental work for review. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n';
+  const openingNotice=label==='Original proposal' ? '> **Historical proposal:** This preserved draft predates the WASIX 01 response-proof pilot. See the SDK integration page for the current implementation. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n' : '> **Proposal:** This page presents the draft API and profile model. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n';
   await writeFile(new URL('00-overview.md',folder),`---\ntitle: Overview\nsidebar_label: Overview\nsidebar_position: 0\n---\n\n${openingNotice}${opening}`);
   let index=0;
   for (const chunk of chunks.slice(1)) {
@@ -34,7 +34,7 @@ async function split(source, dir, label) {
     const number=Number(match[1]), title=match[2];
     const slug=String(number).padStart(2,'0')+'-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/-$/,'');
     const content=rewrite(chunk.replace(match[0],`# ${title}`));
-    const banner=label==='Original proposal' ? '> **Historical proposal:** This preserved draft predates the WASIX 01 response-proof pilot. See the SDK integration page for the current implementation. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n' : '> **Proposal:** This page describes experimental work for review. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n';
+    const banner=label==='Original proposal' ? '> **Historical proposal:** This preserved draft predates the WASIX 01 response-proof pilot. See the SDK integration page for the current implementation. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n' : '> **Proposal:** This page presents the draft API and profile model. [Send feedback on GitHub](https://github.com/HTTP6-ORG/http6-sdk/issues).\n\n';
     await writeFile(new URL(slug+'.md',folder),`---\ntitle: ${JSON.stringify(title)}\nsidebar_label: ${JSON.stringify(title)}\nsidebar_position: ${number}\n---\n\n${banner}${content}`);
     index++;
   }

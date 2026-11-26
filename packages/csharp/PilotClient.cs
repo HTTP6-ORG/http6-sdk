@@ -10,7 +10,7 @@ namespace Http6.Proposed;
 
 public sealed record PilotResponse(int Status, JsonObject Body, byte[] RequestBytes);
 
-// Experimental local fixture adapter. The caller independently supplies trust pins.
+// Local fixture adapter. The caller independently supplies trust pins.
 [System.Runtime.Versioning.UnsupportedOSPlatform("windows")]
 public sealed class PilotClient : IDisposable
 {

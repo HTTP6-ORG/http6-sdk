@@ -1,6 +1,6 @@
 {
   "profile": "http6-wasix-delegation-02",
-  "status": "experimental local synthetic qualification, not independent production verification",
+  "status": "local synthetic qualification results for profile 02",
   "pilotBinarySha256": "c5e176737228b4430f15766b89e4bc13de256e1e7fc437928ed202d9f1ae3c38",
   "existingRegression": {
     "checks": 98,

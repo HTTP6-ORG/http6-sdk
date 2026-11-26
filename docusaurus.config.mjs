@@ -15,7 +15,7 @@ export default {
   }]],
   themeConfig: {
     colorMode: {defaultMode:'light', disableSwitch:true, respectPrefersColorScheme:false},
-    announcementBar: {id:'proposal', content:'PROPOSAL: Experimental developer SDK and draft protocol. <a href="https://github.com/HTTP6-ORG/http6-sdk/issues">Share feedback on GitHub</a>.', isCloseable:false},
+    announcementBar: {id:'proposal', content:'PROPOSAL: HTTP6 developer SDK and protocol draft. <a href="https://github.com/HTTP6-ORG/http6-sdk/issues">Share feedback on GitHub</a>.', isCloseable:false},
     navbar: {
       title: 'HTTP6',
       items: [
@@ -25,7 +25,7 @@ export default {
         {href:'https://github.com/HTTP6-ORG/http6-sdk',label:'GitHub and feedback',position:'right'},
       ],
     },
-    footer: {style:'light', links:[{title:'HTTP6',items:[{label:'HTTP6.org',href:'https://www.http6.org/'},{label:'Developers',href:'https://www.http6.org/developers/'},{label:'Privacy',href:'https://www.http6.org/participate/privacy/'},{label:'Circuit copyright and licensing',href:'https://www.http6.org/participate/licensing/#circuit-notice'}]}, {title:'Contribute',items:[{label:'Repository',href:'https://github.com/HTTP6-ORG/http6-sdk'},{label:'Report an issue',href:'https://github.com/HTTP6-ORG/http6-sdk/issues'}]}], copyright:'HTTP6 API and SDK proposal. Experimental work for review.'},
+    footer: {style:'light', links:[{title:'HTTP6',items:[{label:'HTTP6.org',href:'https://www.http6.org/'},{label:'Developers',href:'https://www.http6.org/developers/'},{label:'Privacy',href:'https://www.http6.org/participate/privacy/'},{label:'Circuit copyright and licensing',href:'https://www.http6.org/participate/licensing/#circuit-notice'}]}, {title:'Contribute',items:[{label:'Repository',href:'https://github.com/HTTP6-ORG/http6-sdk'},{label:'Report an issue',href:'https://github.com/HTTP6-ORG/http6-sdk/issues'}]}], copyright:'HTTP6 API and SDK proposal. Feedback welcome.'},
     prism: {additionalLanguages:['typescript','json','bash','python']},
   },
 };

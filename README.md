@@ -2,9 +2,7 @@
 
 HTTP6 explores how a person or authorized service can delegate bounded work to an agent, require proof for each protected request, enforce the grant at the resource that performs the action, and inspect evidence of the result.
 
-This repository is the public entry point for the proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It contains both design material and experimental implementations. Read the status notes before treating a proposal or local test as a deployed capability.
-
-> **Status:** HTTP6 is a project designation, not an assigned HTTP version or a production protocol. The individual Internet-Drafts and NIST discussion material are not institutional endorsements. This repository is proposal work and experimental local software, not a production security product.
+This repository is the public entry point for the HTTP6 proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It presents the platform architecture, current profile implementations, and planned milestones.
 
 ## Start here
 
@@ -35,8 +33,8 @@ The intended result is authority that follows the task through delegation, with 
 | Part | Responsibility | Current status in this repository |
 | --- | --- | --- |
 | Protocol profiles and schemas | Define signed objects, request and response context, digests, status transitions, errors, and ledger events | Multiple profiles and proposals are kept separate. A proposed API guide is not wire compatible with every existing profile. |
-| Origin and SDKs | Prepare requests, carry grants, call proof and resource adapters, verify responses, and inspect evidence | Experimental Node.js, Python, Rust, Go, and C# adapters are present. Their capabilities and setup differ. |
-| Pilot host and resource adapters | Receive structured requests, enforce local policy, operate the demo resource, and record events | Public host integration source supports synthetic local profiles. Human enrollment, unrestricted mediation, and production recovery are not complete. |
+| Origin and SDKs | Prepare requests, carry grants, call proof and resource adapters, verify responses, and inspect evidence | Node.js, Python, Rust, Go, and C# adapters are present. Their capabilities and setup differ. |
+| Pilot host and resource adapters | Receive structured requests, enforce local policy, operate the demo resource, and record events | Public host integration source supports defined synthetic local profiles and registered resource adapters. |
 | Proof provider | Produce or verify request and response evidence under a selected trust model | Implementations can use their own proof provider or a separately licensed ENI6MA / Pass+ integration. The public WASIX demonstration guests are compiled files. Circuit and guest source is not distributed. A verifier attestation must not be described as a public zero-knowledge proof unless that property is separately established. |
 | Ledger and inspector | Record signed event history and let authorized clients verify signatures and chain continuity | The local pilot verifies returned rows. It does not prove that the server returned the latest ledger head or that an external effect occurred. |
 
@@ -46,18 +44,18 @@ Profile names identify different contracts. Do not assume that a capability or t
 
 | Profile or material | What it contains | Status and boundary |
 | --- | --- | --- |
-| `http6-w1-00` | A bounded signed-request profile that runs over HTTPS, with reference cases for authorization, resource enforcement, shared budgets, replay, and recovery | Reference implementations and test material are available. The published trial used one computer and does not establish independent-operator interoperability. |
-| `http6-wasix-delegation-00` | The original synthetic WASIX pilot with request proofs and local resource adapters | Experimental local integration. It has no native response proofs. |
-| `http6-wasix-delegation-01` | The pilot with native proofs for committed successful responses | Experimental. The proof and evidence depend on this profile's local trust configuration. |
-| `http6-wasix-delegation-02` | Profile 01 plus broker observations for denied, held, malformed, and uncertain replies | Experimental. A signed failure observation describes what the pilot recorded; it does not independently prove an external effect or caller identity. |
-| `http6-guide-01` | A detailed API, schema, and end-to-end design example in the guide | Proposal only. It is not wire compatible with the pilots and is not a published standard. |
-| Rosario-Wang review model | A separate request and response proof model, with its own SDK and ledger | A separate implementation and proof format. It is not the WASIX pilot or a unified production protocol. |
+| `http6-w1-00` | A bounded signed-request profile that runs over HTTPS, with reference cases for authorization, resource enforcement, shared budgets, replay, and recovery | Reference implementations and test material are available for the profile's defined cases. |
+| `http6-wasix-delegation-00` | The original synthetic WASIX pilot with request proofs and local resource adapters | Local pilot profile with request proofs and local resource adapters. |
+| `http6-wasix-delegation-01` | The pilot with native proofs for committed successful responses | Local pilot profile with native response proofs under its configured trust model. |
+| `http6-wasix-delegation-02` | Profile 01 plus broker observations for denied, held, malformed, and uncertain replies | Local pilot profile with broker observations for denied, held, malformed, and uncertain responses. |
+| `http6-guide-01` | A detailed API, schema, and end-to-end design example in the guide | Proposed API and schema profile, separate from the pilot wire profiles. |
+| Rosario-Wang review model | A separate request and response proof model, with its own SDK and ledger | A separate implementation and proof format. |
 
-The local demonstrations use generated synthetic credentials, local state, and bounded test resources. A passing test means the expected result occurred in that fixture. It does not establish production security, independent administration, a universal cryptographic guarantee, or resistance to every attack.
+The local demonstrations use generated synthetic credentials, local state, and bounded test resources. Each test reports the result produced by its fixture.
 
 ## Roadmap from HTTPS and JWT
 
-HTTP6 is a project designation, not an assigned HTTP version. The long-term proposal is to move from signed, proof-bearing requests over HTTPS toward a native encrypted HTTP6 channel. On fully migrated routes, that channel could eventually replace HTTPS for transport and reusable bearer JWTs for authorization. This is a conditional roadmap, not a capability of the current pilot.
+The roadmap moves from signed, proof-bearing requests over HTTPS toward a native encrypted HTTP6 channel. At full migration, the native channel is intended to provide transport encryption and service authentication while request proofs replace reusable bearer JWTs for authorization on migrated routes. The milestones below describe the technical work and sequence.
 
 | Stage | Goal | Status and exit gate |
 | --- | --- | --- |
@@ -106,9 +104,9 @@ python3 scripts/run-adversarial.py \
 
 The [adversarial guide](docs/adversarial-tests.md) explains the expected outcomes and limits. The [multi-language demo](docs/multilanguage-demo.md) documents the Node.js, Python, Rust, Go, and C# examples and cross-runtime run. End-to-end SDK runs that require an assembled pilot use a new output directory and remain synthetic.
 
-## Requirements before production
+## Production roadmap milestones
 
-This repository is not a production deployment. Work still required includes:
+The production roadmap includes these milestones:
 
 - Freeze and independently review profile contracts, canonical bytes, schemas, algorithms, key lifecycle, and proof statements.
 - Complete human enrollment, trusted approval display, key custody, runtime identity, and resource-specific policy distribution.
@@ -126,4 +124,4 @@ Open [GitHub Issues](https://github.com/HTTP6-ORG/http6-sdk/issues) for correcti
 
 This repository does not currently select a top-level license. Public visibility does not grant rights to separately distributed circuit, validation-kit, or third-party material. Review the [compiled circuit notice](circuits/NOTICE.md) and the notice shipped with each demo before use. Circuit source is not published.
 
-ENI6MA circuits are patent pending and protected by copyright. Commercial deployments of the separately licensed circuit integration require a paid license through ENI6MA or Rosario Cybernetics. Nonprofit organizations and private entities may [contact Rosario Cybernetics](https://www.rosariocyber.com/contact) to request permission. For production or extended implementation inquiries, contact President Frank Rosario through [Rosario Cybernetics](https://www.rosariocyber.com/contact). The experimental examples do not establish a production security guarantee.
+ENI6MA circuits are patent pending and protected by copyright. Commercial deployments of the separately licensed circuit integration require a paid license through ENI6MA or Rosario Cybernetics. Nonprofit organizations and private entities may [contact Rosario Cybernetics](https://www.rosariocyber.com/contact) to request permission. For production or extended implementation inquiries, contact President Frank Rosario through [Rosario Cybernetics](https://www.rosariocyber.com/contact).

@@ -1,4 +1,4 @@
-//! Experimental local WASIX 02 pilot adapter.
+//! Local WASIX 02 pilot adapter.
 use serde_json::{json, Value};
 use sha2::{Digest, Sha256};
 use std::{

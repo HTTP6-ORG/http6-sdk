@@ -11,7 +11,7 @@ The proposed [Python, Rust, Go and C# SDKs](./multilanguage-sdks.md) provide bas
     <source media="(max-width: 54.99rem)" srcSet="https://www.http6.org/illustrations/sdk-integration-mobile.svg" type="image/svg+xml" />
     <img src="https://www.http6.org/illustrations/sdk-integration-desktop.svg" alt="An application starts or attaches to the synthetic local pilot through the SDK. The resource checks policy and records the effect, and the application can review signed evidence." width="1200" loading="lazy" />
   </picture>
-  <figcaption>Experimental SDK integration using a local synthetic fixture. It is not a production deployment.<br /> <a className="http6-wide" href="https://www.http6.org/illustrations/sdk-integration-desktop.svg" target="_blank" rel="noopener noreferrer">View larger SVG (opens in a new tab)</a> <a className="http6-narrow" href="https://www.http6.org/illustrations/sdk-integration-mobile.svg" target="_blank" rel="noopener noreferrer">View larger SVG (opens in a new tab)</a> · <a className="http6-wide" href="https://www.http6.org/illustrations/sdk-integration-desktop.png" download>Download PNG</a> <a className="http6-narrow" href="https://www.http6.org/illustrations/sdk-integration-mobile.png" download>Download PNG</a> </figcaption>
+  <figcaption>SDK integration using a local synthetic fixture.<br /> <a className="http6-wide" href="https://www.http6.org/illustrations/sdk-integration-desktop.svg" target="_blank" rel="noopener noreferrer">View larger SVG (opens in a new tab)</a> <a className="http6-narrow" href="https://www.http6.org/illustrations/sdk-integration-mobile.svg" target="_blank" rel="noopener noreferrer">View larger SVG (opens in a new tab)</a> · <a className="http6-wide" href="https://www.http6.org/illustrations/sdk-integration-desktop.png" download>Download PNG</a> <a className="http6-narrow" href="https://www.http6.org/illustrations/sdk-integration-mobile.png" download>Download PNG</a> </figcaption>
 </figure>
 
 From an application checkout, install the local package after cloning this repository:
@@ -49,7 +49,7 @@ try {
 
 `startFixture` is limited to a new state directory and creates the pilot's fixed fixture circuits. `attach` connects to an existing pilot without taking ownership of its lifecycle. `invoke` submits an operation to the pilot's policy gate. `catalog` and `resolve` read ledger objects. `events` verifies the returned signed event chain under an independently configured ledger key; it does not prove the server returned its latest head or that an external effect occurred. `verifySpend` invokes the pilot's separate historical wallet verifier with independently configured operator and ledger pins.
 
-For profiles 01 and 02, `verifyNativeResponseProof` compares the supplied response to its evidence, then invokes the compiled verifier with independent operator and ledger pins. Its result is historical verification at the signed ledger-event time, not a finding that the grant is currently active. The method rejects profile 00. Profile selection is explicit; `attach` and `startFixture` reject an unexpected profile. General `mintChild()` is not exposed through the pilot agent API. Human approval, production key custody, multi-host recovery, and unrestricted OS mediation are not implemented.
+For profiles 01 and 02, `verifyNativeResponseProof` compares the supplied response to its evidence, then invokes the compiled verifier with independent operator and ledger pins. Its result is historical verification at the signed ledger-event time, not a finding that the grant is currently active. The method rejects profile 00. Profile selection is explicit; `attach` and `startFixture` reject an unexpected profile. General `mintChild()` is not exposed through the pilot agent API.
 
 ## Direct mint and verifier integration
 
@@ -82,7 +82,7 @@ The repository's Python adapter loads the existing Rosario-Wang validation kit a
 python3 reference/review_channel.py /path/to/HTTP6_RosarioWang_Validation_Kit
 ```
 
-This adapter mints the kit's synthetic child, verifies a request and separate response, rejects response modification and replay, and inspects the kit's local ledger. It uses the review model's own proof and ledger formats, not the WASIX agent's format. No production network deployment or actual human approval is implied.
+This adapter mints the kit's synthetic child, verifies a request and separate response, rejects response modification and replay, and inspects the kit's local ledger. It uses the review model's own proof and ledger formats, not the WASIX agent's format.
 
 A second local bridge composes both paths for a synthetic wallet example. It places the complete WASIX proposal inside a review-model request proof, sends that proposal to the running pilot, verifies the pilot's signed wallet evidence using independently supplied operator and ledger keys, and places the actual pilot response inside a separate review-model response proof. It also tests a modified response.
 
@@ -90,7 +90,7 @@ A second local bridge composes both paths for a synthetic wallet example. It pla
 python3 reference/pilot_bridge.py KIT_PATH STATE_DIR PILOT_BINARY OPERATOR_KEY LEDGER_KEY
 ```
 
-The bridge is an optional trusted local integration with two separate verifiers and two ledgers. Profile 01 also supplies native response proofs directly, without this bridge. It does not make their wire profiles interoperable, provide an independent third-party verification of the review proof, or prove production payment settlement. It is intended for synthetic data only.
+The bridge is an optional trusted local integration with two separate verifiers and two ledgers. Profile 01 also supplies native response proofs directly, without this bridge. It keeps their wire profiles and verifiers separate. The example uses synthetic data.
 
 The [repository](https://github.com/HTTP6-ORG/http6-sdk) contains the SDK, tests, proposed schemas and source documents. Please [open an issue](https://github.com/HTTP6-ORG/http6-sdk/issues) with questions or implementation feedback.
 

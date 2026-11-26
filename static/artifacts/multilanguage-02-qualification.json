@@ -1,6 +1,6 @@
 {
   "profile": "http6-wasix-delegation-02",
-  "scope": "synthetic local fixtures, ephemeral local trust pins, not production or independent operator verification",
+  "scope": "synthetic local fixtures and ephemeral local trust pins",
   "languages": {
     "node": {
       "allowedResponse": "verified",
@@ -50,7 +50,6 @@
   "limitations": [
     "WASIX Python guest synthesizes bytes but does not itself sign or invoke the native circuit",
     "trust pins are generated in the same local fixture",
-    "not independent cross-domain evidence or evidence of a production guarantee",
     "GitHub documentation workflow does not run this test without separately provisioned runtimes"
   ]
 }

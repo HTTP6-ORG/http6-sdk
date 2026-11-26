@@ -4,7 +4,7 @@ sidebar_position: 6
 
 # Python, Rust, Go and C# pilot SDKs
 
-These proposed, basic SDKs attach to an existing `http6-wasix-delegation-02` agent and the matching approved pilot verifier. They submit bounded requests, preserve exact bytes for failure proofs, retrieve ledger rows, compare returned proof evidence, and invoke the independently supplied pilot verifier. They do not contain the ENI6MA circuit or WASIX guest source. They are experimental local adapters, not production SDKs, cryptographic libraries, unrestricted minting APIs, or standalone circuit implementations.
+These proposed, basic SDKs attach to an existing `http6-wasix-delegation-02` agent and the matching approved pilot verifier. They submit bounded requests, preserve exact bytes for failure proofs, retrieve ledger rows, compare returned proof evidence, and invoke the independently supplied pilot verifier. They do not contain the ENI6MA circuit or WASIX guest source.
 
 | Language | Package location | Main APIs |
 | --- | --- | --- |
@@ -57,7 +57,7 @@ python3 tests/multisdk/run.py \
   --dotnet dotnet
 ```
 
-The runner compiles all four SDK test programs, creates a new private agent state for each, and retains the output directory. Each test verifies an allowed response, a denied response, a malformed response, wrong trust pins, altered response or request bytes, and a modified ledger row. It checks one synthetic wallet effect. The tests use an experimental single-host fixture and do not establish an independent operator, current authority, production settlement or an information-theoretic guarantee. See the [qualification report](https://www.http6.org/developers/sdk/artifacts/multisdk-02-qualification.json).
+The runner compiles all four SDK test programs, creates a new private agent state for each, and retains the output directory. Each test verifies an allowed response, a denied response, a malformed response, wrong trust pins, altered response or request bytes, and a modified ledger row. It checks one synthetic wallet effect using a single-host fixture and local trust pins. See the [qualification report](https://www.http6.org/developers/sdk/artifacts/multisdk-02-qualification.json).
 
 The [WASIX 02 ledger schema](https://www.http6.org/developers/sdk/artifacts/wasix-ledger-02.schema.json) now defines the common row and signed-entry envelopes and event data for all 19 event types recorded by this pilot. Schema validation is syntactic. A ledger row contains JSON text in `data`; decode it and compare it to the verified signed entry before applying event semantics. The schema does not verify signatures, object availability, chain freshness, resource effects, or claims outside this pilot profile. Unknown event kinds must be rejected until a profile update defines them.
 

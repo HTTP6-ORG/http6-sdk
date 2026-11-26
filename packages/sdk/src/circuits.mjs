@@ -3,7 +3,7 @@ import {createInterface} from 'node:readline';
 import {join} from 'node:path';
 import {canonical, Http6Error} from './index.mjs';
 
-// Experimental process adapter for the existing newline-delimited WASIX guest API.
+// Process adapter for the existing newline-delimited WASIX guest API.
 // This is not an isolation boundary or protected hardware key store.
 class Guest {
   constructor(wasmer, file) {

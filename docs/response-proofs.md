@@ -65,7 +65,7 @@ For a running synthetic fixture, the same verification is available from the pil
 
 A [local synthetic qualification report](https://www.http6.org/developers/sdk/artifacts/wasix-response-01-qualification.json) records 98 passing checks across endpoint, process, database and wallet adapters. It recorded 167 signed ledger entries, 23 issued operations, 13 resource effects and zero restricted effects. The response tests rejected altered result, recipient, request reference, nonce, status, policy, audience, receipt, proof signature, original presentation and ledger decision; they also rejected missing proofs and replay with both the original and a fresh control proof. A live check rejects an expired response proof, while historical verification succeeds at the signed event time.
 
-Separate SDK tests exercised direct minting and request proof validation, response evidence verification, a changed result, wrong trust pin, profile mismatch and a local synthetic bridge. The original 00 SDK path was also checked. These are local tests under one operator, not independent cross-domain evidence.
+Separate SDK tests exercised direct minting and request proof validation, response evidence verification, a changed result, wrong trust pin, profile mismatch and a local synthetic bridge. The original 00 SDK path was also checked. These test runs used one operator.
 
 ## Current limits
 
