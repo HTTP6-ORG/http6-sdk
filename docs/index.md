@@ -11,6 +11,7 @@ The WASIX 02 pilot records native proofs for committed successful responses and 
 
 - [Start with the developer guide](./generated/guide/00-overview.md)
 - [Read the HTTP6 theory](./http6-theory.md)
+- [Read the ENI6MA Moonshot mission](./eni6ma-moonshot.md)
 - [Use the proposed SDK](./sdk-api.md)
 - [Open the read-only API navigator](https://www.http6.org/developers/sdk/api-reference/)
 - [Run five-language and cross-runtime examples](./multilanguage-demo.md)
