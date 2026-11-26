@@ -84,6 +84,13 @@ jobs:
         run: |
           npm ci
           npm test
+      - name: Repeat synthetic adversarial comparisons
+        run: python3 scripts/run-adversarial.py --pilot-bin "$GITHUB_WORKSPACE/pilot/bin" --out "$RUNNER_TEMP/adversarial-results" --iterations 3
+      - uses: actions/upload-artifact@v4
+        with:
+          name: adversarial-summary-${{ matrix.arch }}
+          path: ${{ runner.temp }}/adversarial-results/summary.json
+          retention-days: 30
       - name: Validate Python, Rust, Go, and C# SDKs
         run: |
           set -eu

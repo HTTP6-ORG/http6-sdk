@@ -158,7 +158,11 @@ func (a *agentServer) propose(m M) (reply any, err error) {
 	defer func() {
 		if v := recover(); v != nil {
 			if f, ok := v.(testFailure); ok {
-				err = f.err
+				if strings.Contains(f.err.Error(), "action outside hereditary policy") {
+					err = deny("POLICY_DENIED")
+				} else {
+					err = f.err
+				}
 			} else {
 				panic(v)
 			}
