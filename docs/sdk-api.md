@@ -4,6 +4,8 @@ sidebar_position: 2
 
 # SDK integration
 
+This API is one implementation track within the wider ENI6MA program. It specifies how bounded authority, proofs, enforcement, response verification, and ledger evidence can operate across an HTTP exchange. ENI6MA’s broader objective extends to human identity, privacy-preserving proofs, communications, and institutional access, with a long-range research direction based on information-theoretic security. The [mission page](./eni6ma-moonshot.md) describes that thesis, its mathematical starting point, and the need for developer adoption, academic scrutiny, and cybersecurity evaluation.
+
 The proposed [Python, Rust, Go and C# SDKs](./multilanguage-sdks.md) provide basic proof and ledger verification. The proposed Node.js SDK connects to the local WASIX pilot through private agent and ledger sockets. Profiles `http6-wasix-delegation-01` and `http6-wasix-delegation-02` create and validates native proofs for committed successful responses, in addition to request proofs and resource-side enforcement. The earlier `http6-wasix-delegation-00` profile remains supported and has no native response proof. Profile 02 additionally records [failure response proofs](./failure-proofs.md). All use synthetic autonomous fixture origins and fixed children at agent startup.
 
 <figure className="http6-figure">

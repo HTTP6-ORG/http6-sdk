@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Proposed HTTP6 API and SDK
 
-This developer guide explores how a human or authorized origin can delegate bounded work to an agent, how a resource can check that work at the point of action, and how a reader can inspect the evidence.
+HTTP6 is one protocol and SDK track within ENI6MA’s wider program for human-accessible cybersecurity. That program begins with human identity and delegated authority, then extends toward information-theoretic protection for proofs, communications, institutional access, and other digital operations. This guide covers the HTTP6 API contribution: bounded work, resource-side checks, response evidence, and ledger inspection. The [ENI6MA mission](./eni6ma-moonshot.md) explains the larger thesis and the role of mathematical review, developer adoption, and cybersecurity evaluation.
 
 The WASIX 02 pilot records native proofs for committed successful responses and broker observations for denied, held, malformed, and uncertain responses. The separate Rosario-Wang review model uses its own implementation and proof format.
 

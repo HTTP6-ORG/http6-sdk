@@ -4,6 +4,8 @@ HTTP6 explores how a person or authorized service can delegate bounded work to a
 
 This repository is the public entry point for the HTTP6 proposal, API and SDK code, schemas, examples, and compiled demonstration guests. It presents the platform architecture, current profile implementations, and planned milestones.
 
+HTTP6 is one network-protocol strand in the wider ENI6MA program. That program concerns human-accessible identity, bounded authority, private proofs, secure communications, and institutional access across global digital systems. Its long-range research begins with geometric and information-theoretic models of what an observer can learn, and aims to replace computational-hardness-dependent security patterns as mathematical results, implementations, and independent review support each transition. This repository covers the HTTP6 API and SDK contribution to that work. Read the [ENI6MA mission](docs/eni6ma-moonshot.md) for the broader thesis and its review path.
+
 ## Start here
 
 - [HTTP6.org](https://www.http6.org/): project overview, architecture, research, and participation.

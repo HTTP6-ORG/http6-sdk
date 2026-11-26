@@ -1,5 +1,13 @@
 # HTTP6 Theory: From Bearer Authority to Proof-Carrying Operations
 
+## HTTP6 within the ENI6MA program
+
+HTTP6 is an application of a wider ENI6MA program whose long-range objective is human-accessible security grounded in information-theoretic analysis. The program considers identity, authorization, private proofs, communications, institutional access, and the resources on which digital operations depend. HTTP6 addresses one part of this system: it connects a person-origin grant to an agent’s request and to the service that can enforce it.
+
+The underlying research starts by modeling geometric relationships among public partitions, private membership choices, proof responses, and an observer’s view. It asks how the distribution of released responses affects the observer’s probabilities over a credential. In the current per-message privacy model, fresh independent private randomness supports a result for a specified passive observer and stated assumptions. That result describes the model’s privacy property; each additional system property requires its own definition and evidence.
+
+The long-range objective is to extend this foundation across practical security functions and replace computational-hardness-dependent patterns when an alternative has been proved, implemented, independently reviewed, and adopted. The HTTP6 API and SDK make this larger thesis reviewable through typed requests, schemas, examples, and test material. Cryptographic properties remain specific to each profile. W1, for example, uses Ed25519 signatures over HTTPS. Read the [ENI6MA mission](./eni6ma-moonshot.md) for the full program and review path.
+
 HTTP6 starts from a change in the unit of security. Conventional web systems protect a connection and then often give an application or agent a reusable credential. HTTP6 aims to make each protected operation carry its own bounded authority and evidence, checked where the requested effect takes place.
 
 The long-range objective is to replace reusable bearer JWT authorization and conventional HTTPS transport across fully migrated applications with a native HTTP6 model. That destination combines operation-level authority, resource-side enforcement, verifiable evidence, and an authenticated encrypted channel.

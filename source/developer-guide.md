@@ -8,6 +8,12 @@ This guide describes how an application, authority service, circuit verifier, re
 
 **Implementation update:** The proposed SDK supports WASIX profiles 00, 01 and 02. In 01, the resource and a separate designated verifier produce a native proof for a committed successful response after a one-use ledger challenge. The SDK verifies matching response evidence at the signed ledger-event time. A separate Rosario-Wang review model and optional synthetic bridge remain available. The different formats, verifiers and ledgers remain separate. See the SDK integration and native response proof pages for exact capabilities and limits.
 
+## Where HTTP6 fits in the ENI6MA mission
+
+HTTP6 is one network-protocol application within a wider ENI6MA program for human-accessible cybersecurity. The larger program concerns human identity, bounded authority, private proofs, communications, institutional access, and other systems that perform consequential digital operations. Its mathematical starting point is a geometric model of public partitions, private membership choices, response dictionaries, fresh masking, and the information available to an observer. The research asks whether the released response distribution changes that observer’s probabilities over a credential.
+
+The long-range objective is to extend information-theoretic properties into practical systems and to replace computational-hardness-dependent patterns where an alternative has been proved, implemented, reviewed, and adopted. This guide defines the HTTP6 API contribution through profiles, schemas, examples, and evidence. It does not assign a single cryptographic property to every profile. W1 uses Ed25519 over HTTPS, while the native-channel and broader information-theoretic work follow separate research and implementation paths. Read the [ENI6MA mission](https://github.com/HTTP6-ORG/http6-sdk/blob/main/docs/eni6ma-moonshot.md) for the program’s full scope and review path.
+
 The companion files are:
 
 - [JSON Schema for the proposed guide profile](http6-sdk-guide/schema.json), with 37 reusable definitions.
