@@ -6,7 +6,7 @@ const load=async p=>JSON.parse(await readFile(new URL('../../../'+p,import.meta.
 
 test('all proposed operations define bounded request and response schemas',async()=>{
  const spec=await load('static/artifacts/openapi.yaml');
- assert.equal(spec.openapi,'3.1.0');assert.match(spec.info.description,/not the existing WASIX pilot API/);
+ assert.equal(spec.openapi,'3.1.0');assert.match(spec.info.description,/read-only view of operations and schemas/);
  const names=new Set();
  for(const [path,item] of Object.entries(spec.paths)){
   assert.ok(item.post, path); const operation=item.post;
